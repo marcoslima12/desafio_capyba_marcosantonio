@@ -11,6 +11,9 @@ class PreviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Check your photo')
+      ),
       body: Row(children: [
         Expanded(
             child: Stack(
