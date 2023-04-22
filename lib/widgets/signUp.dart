@@ -1,4 +1,11 @@
+import 'dart:io';
+import 'dart:ui';
+
+import 'package:desafio_capyba_marcosantonio/widgets/Anexo.dart';
+import 'package:desafio_capyba_marcosantonio/widgets/previewPage.dart';
 import 'package:flutter/material.dart';
+import 'package:camera_camera/camera_camera.dart';
+import 'package:get/get.dart';
 
 import '../models/User.dart';
 
@@ -13,6 +20,17 @@ final TextEditingController _createEmailController = TextEditingController();
 final TextEditingController _createPasswordController = TextEditingController();
 
 class _SignUpState extends State<SignUp> {
+  late File arquivo;
+
+  showPreview(file) async {
+    file = await Get.to(() => PreviewPage(file: file));
+
+    if (file != null) {
+      setState(() => arquivo = file);
+      Get.back();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +42,17 @@ class _SignUpState extends State<SignUp> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            if(arquivo != null) Anexo(arquivo: arquivo),
+            ElevatedButton.icon(
+              onPressed: () => Get.to(
+                () => CameraCamera(onFile: (file) => showPreview(file)),
+              ),
+              icon: Icon(Icons.camera_alt),
+              label: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text('Tire uma foto'),
+              ),
+            ),
             TextField(
                 controller: _createEmailController,
                 autofocus: true,
