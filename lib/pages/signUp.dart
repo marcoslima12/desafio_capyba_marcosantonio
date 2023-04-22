@@ -20,12 +20,12 @@ final TextEditingController _createEmailController = TextEditingController();
 final TextEditingController _createPasswordController = TextEditingController();
 
 class _SignUpState extends State<SignUp> {
-  late File arquivo;
+  File arquivo = File('');
 
   showPreview(file) async {
     file = await Get.to(() => PreviewPage(file: file));
 
-    if (file != null) {
+    if (file != null && file != '') {
       setState(() => arquivo = file);
       Get.back();
     }
@@ -39,10 +39,9 @@ class _SignUpState extends State<SignUp> {
         padding: const EdgeInsets.all(30.0),
         child: Center(
             child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            if(arquivo != null) Anexo(arquivo: arquivo),
+            if (arquivo != null) Anexo(arquivo: arquivo),
             ElevatedButton.icon(
               onPressed: () => Get.to(
                 () => CameraCamera(onFile: (file) => showPreview(file)),
