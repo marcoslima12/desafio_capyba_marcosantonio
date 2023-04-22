@@ -8,36 +8,36 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Welcone - Desafio Capyba')),
       backgroundColor: Colors.greenAccent,
-      body: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Center(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("Welcome",
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold)),
-                Row(
+      body: Center(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Welcome :)",
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold)),
+              Padding(
+                padding: EdgeInsets.only(top: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(),
                         onPressed: () {
                           Navigator.pushNamed(context, '/login');
                         },
-                        child: Text("Sign In")),
+                        child: Text("Sign in")),
                     SizedBox(width: 40),
                     ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/signup');
                         },
-                        child: Text("Sign Up")),
+                        child: Text("Sign up")),
                   ],
-                )
-              ]),
-        ),
+                ),
+              )
+            ]),
       ),
     );
   }
