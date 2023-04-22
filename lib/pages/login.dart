@@ -46,32 +46,32 @@ class _LoginState extends State<Login> {
                 )),
             Column(
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    final String email = _emailController.text;
-                    final String password = _passwordController.text;
-                    final User UserLoggedIn = User(email, password);
-                    print(UserLoggedIn);
-                  },
-                  child: Text('Sign In'),
-                ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Column(children: [
-                    Text("Doesn't have an account yet?",
-                        style: const TextStyle(color: Colors.white)),
-                    ElevatedButton(
+                    padding: EdgeInsets.all(10),
+                    child: ElevatedButton(
                       onPressed: () {
                         final String email = _emailController.text;
                         final String password = _passwordController.text;
                         final User UserLoggedIn = User(email, password);
                         print(UserLoggedIn);
-                        Navigator.pushNamed(context, '/signup');
                       },
-                      child: Text('Create an account'),
-                    )
-                  ]),
-                )
+                      child: Text('Sign in'),
+                    )),
+                Column(children: [
+                  Text("Or", style: const TextStyle(color: Colors.white)),
+                  ElevatedButton(
+                    onPressed: () {
+                      final String email = _emailController.text;
+                      final String password = _passwordController.text;
+                      final User UserLoggedIn = User(email, password);
+                      print(UserLoggedIn);
+                      Navigator.pushNamed(context, '/signup');
+                    },
+                    child: Text('Create an account'),
+                  ),
+                  Text("If you don't have an account yet",
+                      style: const TextStyle(color: Colors.white)),
+                ]),
               ],
             )
           ],
