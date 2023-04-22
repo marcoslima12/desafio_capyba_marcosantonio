@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:desafio_capyba_marcosantonio/widgets/Anexo.dart';
-import 'package:desafio_capyba_marcosantonio/widgets/previewPage.dart';
+import 'package:desafio_capyba_marcosantonio/pages/photoPreview.dart';
 import 'package:flutter/material.dart';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:get/get.dart';
