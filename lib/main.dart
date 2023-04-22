@@ -17,6 +17,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
       home: WelcomePage(),
+      routes: {
+        '/login': (context) => Login(),
+        '/signup': (context) => SignUp(),
+      },
     );
   }
 }

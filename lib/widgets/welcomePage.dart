@@ -23,10 +23,14 @@ class WelcomePage extends StatelessWidget {
                   children: [
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(),
-                        onPressed: () => {},
+                        onPressed: (){
+                          Navigator.pushNamed(context, '/login');
+                        },
                         child: Text("Sign In")),
                     SizedBox(width: 40),
-                    ElevatedButton(onPressed: () => {}, child: Text("Sign ")),
+                    ElevatedButton(onPressed: (){
+                      Navigator.pushNamed(context, '/signup');
+                    }, child: Text("Sign Up")),
                   ],
                 )
               ]),
