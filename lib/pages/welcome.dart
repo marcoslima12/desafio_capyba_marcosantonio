@@ -6,6 +6,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Welcone - Desafio Capyba')),
       backgroundColor: Colors.greenAccent,
       body: Padding(
         padding: const EdgeInsets.all(30),
@@ -23,14 +24,16 @@ class WelcomePage extends StatelessWidget {
                   children: [
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(),
-                        onPressed: (){
+                        onPressed: () {
                           Navigator.pushNamed(context, '/login');
                         },
                         child: Text("Sign In")),
                     SizedBox(width: 40),
-                    ElevatedButton(onPressed: (){
-                      Navigator.pushNamed(context, '/signup');
-                    }, child: Text("Sign Up")),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/signup');
+                        },
+                        child: Text("Sign Up")),
                   ],
                 )
               ]),
