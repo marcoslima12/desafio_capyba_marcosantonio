@@ -2,12 +2,17 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
+import '../models/User.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
 }
+
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
 
 class _LoginState extends State<Login> {
   @override
@@ -22,6 +27,7 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
+                controller: _emailController,
                 autofocus: true,
                 keyboardType: TextInputType.text,
                 style: TextStyle(color: Colors.green, fontSize: 20),
@@ -30,6 +36,7 @@ class _LoginState extends State<Login> {
                   labelStyle: TextStyle(color: Colors.white),
                 )),
             TextField(
+                controller: _passwordController,
                 autofocus: true,
                 keyboardType: TextInputType.text,
                 style: TextStyle(color: Colors.green, fontSize: 20),
@@ -44,7 +51,13 @@ class _LoginState extends State<Login> {
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.green),
                   ),
-                  onPressed: () => {print("I just pressed the button")},
+                  onPressed: () {
+                    final String email = _emailController.text;
+                    final String password = _passwordController.text;
+
+                    final User UserLoggedIn = User(email, password);
+                    print(UserLoggedIn);
+                  },
                   child: Text('Conectar'),
                 ))
           ],
