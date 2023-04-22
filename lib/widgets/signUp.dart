@@ -42,22 +42,15 @@ class _SignUpState extends State<SignUp> {
                   labelText: "Insert a password",
                   labelStyle: TextStyle(color: Colors.white),
                 )),
-            ButtonTheme(
-                height: 40,
-                child: TextButton(
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.green),
-                  ),
-                  onPressed: () {
-                    final String email = _createEmailController.text;
-                    final String password = _createPasswordController.text;
-
-                    final User UserLoggedIn = User(email, password);
-                    print(UserLoggedIn);
-                  },
-                  child: Text('Create account'),
-                ))
+            ElevatedButton(
+              onPressed: () {
+                final String email = _createEmailController.text;
+                final String password = _createPasswordController.text;
+                final User UserLoggedIn = User(email, password);
+                print(UserLoggedIn);
+              },
+              child: Text('Create account'),
+            )
           ],
         )),
       ),
