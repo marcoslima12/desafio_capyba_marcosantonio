@@ -1,4 +1,5 @@
 import 'package:desafio_capyba_marcosantonio/pages/login.dart';
+import 'package:desafio_capyba_marcosantonio/widgets/MenuLateral.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +22,17 @@ class LoggedArea extends StatelessWidget {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
+          drawer: DrawerWidget(),
           appBar: AppBar(
             title: Text('Logged Area - Desafio Capyba'),
             bottom: const TabBar(
               tabs: [
-                Tab(child: Text('Home'),),
-                Tab(child: Text('Restrict'),),
+                Tab(
+                  child: Text('Home'),
+                ),
+                Tab(
+                  child: Text('Restrict'),
+                ),
               ],
             ),
           ),
@@ -36,7 +42,6 @@ class LoggedArea extends StatelessWidget {
               Icon(Icons.lock),
             ],
           ),
-        )
-        );
+        ));
   }
 }
