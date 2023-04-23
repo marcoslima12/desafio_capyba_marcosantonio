@@ -44,7 +44,7 @@ class _SignUpState extends State<SignUp> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            if (arquivo != null) Anexo(arquivo: arquivo),
+            /* if (arquivo != null) Anexo(arquivo: arquivo),
             ElevatedButton.icon(
               onPressed: () => Get.to(
                 () => CameraCamera(onFile: (file) => showPreview(file)),
@@ -54,14 +54,14 @@ class _SignUpState extends State<SignUp> {
                 padding: const EdgeInsets.all(16),
                 child: Text('Tire uma foto'),
               ),
-            ),
+            ), */
             TextField(
                 controller: _createEmailController,
                 autofocus: true,
                 keyboardType: TextInputType.text,
                 style: TextStyle(color: Colors.green, fontSize: 20),
                 decoration: InputDecoration(
-                  labelText: "Insert an email",
+                  labelText: "Email",
                   labelStyle: TextStyle(color: Colors.white),
                 )),
             TextField(
@@ -70,17 +70,27 @@ class _SignUpState extends State<SignUp> {
                 keyboardType: TextInputType.text,
                 style: TextStyle(color: Colors.green, fontSize: 20),
                 decoration: InputDecoration(
-                  labelText: "Insert a password",
+                  labelText: "Password",
                   labelStyle: TextStyle(color: Colors.white),
                 )),
-            ElevatedButton(
-              onPressed: () {
-                final String email = _createEmailController.text;
-                final String password = _createPasswordController.text;
-                final User UserLoggedIn = User(email, password);
-                print(UserLoggedIn);
-              },
-              child: Text('Create account'),
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      final String email = _createEmailController.text;
+                      final String password = _createPasswordController.text;
+                      final User UserLoggedIn = User(email, password);
+                      print(UserLoggedIn);
+                    },
+                    child: Text('Sign up'),
+                  ),
+                ),
+                TextButton(
+                    onPressed: () => {Navigator.pushNamed(context, '/login')},
+                    child: Text("Already an user? Sign in"))
+              ],
             )
           ],
         )),
