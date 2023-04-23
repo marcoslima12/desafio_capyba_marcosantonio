@@ -18,9 +18,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-       title: const Text('Login - Desafio Capyba')
-      ),
+      appBar: AppBar(title: const Text('Login - Desafio Capyba')),
       backgroundColor: Colors.greenAccent,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -50,7 +48,7 @@ class _LoginState extends State<Login> {
             Column(
               children: [
                 Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.only(top: 10),
                     child: ElevatedButton(
                       onPressed: () {
                         final String email = _emailController.text;
@@ -60,21 +58,9 @@ class _LoginState extends State<Login> {
                       },
                       child: Text('Sign in'),
                     )),
-                Column(children: [
-                  Text("Or", style: const TextStyle(color: Colors.white)),
-                  ElevatedButton(
-                    onPressed: () {
-                      final String email = _emailController.text;
-                      final String password = _passwordController.text;
-                      final User UserLoggedIn = User(email, password);
-                      print(UserLoggedIn);
-                      Navigator.pushNamed(context, '/signup');
-                    },
-                    child: Text('Create an account'),
-                  ),
-                  Text("If you don't have an account yet",
-                      style: const TextStyle(color: Colors.white)),
-                ]),
+                TextButton(
+                    onPressed: () => {Navigator.pushNamed(context, '/signup')},
+                    child: Text("Not a user yet? Create an account"))
               ],
             )
           ],
