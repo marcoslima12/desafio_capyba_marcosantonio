@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "56364695956",
+    "project_id": "desafio-capyba---marcos",
+    "storage_bucket": "desafio-capyba---marcos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56364695956:android:57159860f1d2972b7e0f81",
+        "android_client_info": {
+          "package_name": "com.marcosantonio.desafiocapyba.desafio_capyba_marcosantonio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56364695956-q6537fb1sl26ueu1ivb9rfioeplhfofh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7L27jeluvRksBJa2MHIdDpac3_h3avAw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56364695956-q6537fb1sl26ueu1ivb9rfioeplhfofh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
