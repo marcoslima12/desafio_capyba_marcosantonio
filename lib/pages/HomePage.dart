@@ -3,54 +3,40 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class IsLogged extends StatelessWidget {
   final User _user;
 
-  HomePage(this._user);
+  IsLogged(this._user);
 
-  Future<void> _signOut() async {
+  /* Future<void> _signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
     } catch (e) {
       print(e);
     }
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Página inicial'),
+        title: Text('Logado - Desafio Capyba'),
       ),
       body: Center(
-        child: Column(
+        child: Text('Área Logada'),
+        /* Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          child
+          /* children: [
             Text('Bem-vindo, ${_user.email}!'),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: _signOut,
+              onPressed: () {},
               child: Text('Sair'),
             ),
-          ],
-        ),
+          ], */
+        ), */
       ),
-    );
-  }
-}
-
-class AuthWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return HomePage(snapshot.data!);
-        } else {
-          return Login();
-        }
-      },
     );
   }
 }
