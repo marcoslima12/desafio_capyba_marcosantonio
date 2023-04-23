@@ -1,4 +1,4 @@
-import 'package:desafio_capyba_marcosantonio/pages/HomePage.dart';
+import 'package:desafio_capyba_marcosantonio/pages/LoggedArea.dart';
 import 'package:desafio_capyba_marcosantonio/pages/login.dart';
 import 'package:desafio_capyba_marcosantonio/pages/signUp.dart';
 import 'package:desafio_capyba_marcosantonio/services/AuthCheck.dart';
