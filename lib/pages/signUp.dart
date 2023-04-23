@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -22,13 +23,23 @@ final TextEditingController _createEmailController = TextEditingController();
 final TextEditingController _createPasswordController = TextEditingController();
 
 class _SignUpState extends State<SignUp> {
-  Future<void> _signUp() async {
+
+  void _signUp() async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _createEmailController.text,
         password: _createPasswordController.text,
       );
-      print('Funcinou');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Your password it too weak')));
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('This email is already in use')));
+      }
     } catch (e) {
       print(e);
     }
