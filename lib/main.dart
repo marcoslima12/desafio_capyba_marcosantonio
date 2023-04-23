@@ -1,3 +1,4 @@
+import 'package:desafio_capyba_marcosantonio/pages/HomePage.dart';
 import 'package:desafio_capyba_marcosantonio/pages/login.dart';
 import 'package:desafio_capyba_marcosantonio/pages/signUp.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Desafio Capyba',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: WelcomePage(),
+      home: AuthWrapper(),
       routes: {
         '/login': (context) => Login(),
         '/signup': (context) => SignUp(),
