@@ -17,17 +17,20 @@ final TextEditingController _emailController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
 
 class _LoginState extends State<Login> {
-
-
-
-  Future<void> _signIn() async {
+  void _signIn() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
-    } catch (e) {
-      print(e);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Email not found. Sign up')));
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Wrog password. Try again')));
+      }
     }
   }
 
@@ -67,10 +70,6 @@ class _LoginState extends State<Login> {
                     padding: EdgeInsets.only(top: 10),
                     child: ElevatedButton(
                       onPressed: _signIn,
-                        /* final String email = _emailController.text;
-                        final String password = _passwordController.text; */
-                        /* final User UserLoggedIn = User(email, password);
-                        print(UserLoggedIn); */
                       child: Text('Sign in'),
                     )),
                 TextButton(
