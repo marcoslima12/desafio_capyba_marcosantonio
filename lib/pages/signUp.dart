@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:desafio_capyba_marcosantonio/pages/LoggedArea.dart';
 import 'package:desafio_capyba_marcosantonio/widgets/Anexo.dart';
 import 'package:desafio_capyba_marcosantonio/pages/photoPreview.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +25,18 @@ final TextEditingController _createPasswordController = TextEditingController();
 class _SignUpState extends State<SignUp> {
   void _signUp() async {
     try {
-      final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _createEmailController.text,
         password: _createPasswordController.text,
       );
+
+    User? user = userCredential.user;
+    if (user != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoggedArea(user)),
+      );
+    }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
