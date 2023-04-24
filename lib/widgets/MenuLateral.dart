@@ -9,24 +9,47 @@ class DrawerWidget extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.greenAccent,
+          Container(
+            height: 200,
+            color: Colors.greenAccent,
+            child: Container(
+              child: Padding(
+                padding: EdgeInsets.only(top: 130, left: 20),
+                child: Column(children: [
+                  Text(
+                    'Whole Name',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Whole Name',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ]),
+              ),
             ),
-            child: Text('Drawer Header'),
           ),
           ListTile(
+            leading: Icon(Icons.person),
             title: const Text('Meu perfil'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, '/login');
+              Navigator.pushNamed(context, '/my-profile');
             },
           ),
           ListTile(
+            leading: Icon(Icons.mail),
             title: const Text('Validar email'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, '/signup');
+              Navigator.pushNamed(context, '/validate-email');
             },
           ),
         ],
@@ -34,3 +57,5 @@ class DrawerWidget extends StatelessWidget {
     );
   }
 }
+
+/*  */
