@@ -9,16 +9,20 @@ class LoggedArea extends StatelessWidget {
 
   LoggedArea(this._user);
 
-  /* Future<void> _signOut() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-    } catch (e) {
-      print(e);
-    }
-  } */
-
   @override
   Widget build(BuildContext context) {
+    void _signOut() async {
+      try {
+        await FirebaseAuth.instance.signOut();
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+        );
+      } catch (e) {
+        print(e);
+      }
+    }
+
     return DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -36,12 +40,30 @@ class LoggedArea extends StatelessWidget {
               ],
             ),
           ),
-          body: const TabBarView(
+          body: TabBarView(
             children: [
-              Icon(Icons.house),
-              Icon(Icons.lock),
+              ElevatedButton(onPressed: _signOut, child: Text('SAIR')),
+              Column(
+                children: [Text('Oi'), Text('Oii')],
+              ),
             ],
           ),
         ));
+  }
+}
+
+class AuthWrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return LoggedArea(snapshot.data!);
+        } else {
+          return Login();
+        }
+      },
+    );
   }
 }
