@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../pages/HomePage.dart';
+import '../pages/LoggedArea.dart';
 import '../pages/login.dart';
 
 class AuthWrapper extends StatelessWidget {
@@ -11,7 +11,7 @@ class AuthWrapper extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return IsLogged(snapshot.data!);
+          return LoggedArea(snapshot.data!);
         } else {
           return Login();
         }

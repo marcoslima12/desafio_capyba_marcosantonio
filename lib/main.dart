@@ -1,10 +1,8 @@
-import 'package:desafio_capyba_marcosantonio/pages/HomePage.dart';
+import 'package:desafio_capyba_marcosantonio/pages/LoggedArea.dart';
 import 'package:desafio_capyba_marcosantonio/pages/login.dart';
 import 'package:desafio_capyba_marcosantonio/pages/signUp.dart';
-import 'package:desafio_capyba_marcosantonio/services/AuthCheck.dart';
+import 'package:desafio_capyba_marcosantonio/pages/validateEmail.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:desafio_capyba_marcosantonio/pages/welcome.dart';
 import 'package:get/get.dart';
 
@@ -28,6 +26,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => Login(),
         '/signup': (context) => SignUp(),
+        '/validate-email': (context) => ValidateEmail(),
       },
     );
   }

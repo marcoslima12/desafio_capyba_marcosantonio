@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:desafio_capyba_marcosantonio/pages/LoggedArea.dart';
 import 'package:desafio_capyba_marcosantonio/widgets/Anexo.dart';
 import 'package:desafio_capyba_marcosantonio/pages/photoPreview.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +22,51 @@ class SignUp extends StatefulWidget {
 final TextEditingController _createEmailController = TextEditingController();
 final TextEditingController _createPasswordController = TextEditingController();
 
+/* var acs = ActionCodeSettings(
+    // URL you want to redirect back to. The domain (www.example.com) for this
+    // URL must be whitelisted in the Firebase Console.
+    url: 'https://www.example.com/finishSignUp?cartId=1234',
+    // This must be true
+    handleCodeInApp: true,
+    iOSBundleId: 'com.example.ios',
+    androidPackageName: 'com.example.android',
+    // installIfNotAvailable
+    androidInstallApp: true,
+    // minimumVersion
+    androidMinimumVersion: '12'); */
+
 class _SignUpState extends State<SignUp> {
-  Future<void> _signUp() async {
+  void _signUp() async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _createEmailController.text,
         password: _createPasswordController.text,
       );
-      print('Funcinou');
+     /*  FirebaseAuth.instance.sendSignInLinkToEmail(
+          email: _createEmailController.text, actionCodeSettings: acs); */
+      User? user = userCredential.user;
+     /*  User? otherUser = FirebaseAuth.instance.currentUser; */
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoggedArea(user)),
+        );
+      }
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        await currentUser.sendEmailVerification();
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Your password it too weak')));
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('This email is already in use')));
+      }
     } catch (e) {
       print(e);
     }
