@@ -22,19 +22,6 @@ class SignUp extends StatefulWidget {
 final TextEditingController _createEmailController = TextEditingController();
 final TextEditingController _createPasswordController = TextEditingController();
 
-/* var acs = ActionCodeSettings(
-    // URL you want to redirect back to. The domain (www.example.com) for this
-    // URL must be whitelisted in the Firebase Console.
-    url: 'https://www.example.com/finishSignUp?cartId=1234',
-    // This must be true
-    handleCodeInApp: true,
-    iOSBundleId: 'com.example.ios',
-    androidPackageName: 'com.example.android',
-    // installIfNotAvailable
-    androidInstallApp: true,
-    // minimumVersion
-    androidMinimumVersion: '12'); */
-
 class _SignUpState extends State<SignUp> {
   void _signUp() async {
     try {
@@ -43,10 +30,8 @@ class _SignUpState extends State<SignUp> {
         email: _createEmailController.text,
         password: _createPasswordController.text,
       );
-     /*  FirebaseAuth.instance.sendSignInLinkToEmail(
-          email: _createEmailController.text, actionCodeSettings: acs); */
+
       User? user = userCredential.user;
-     /*  User? otherUser = FirebaseAuth.instance.currentUser; */
       if (user != null) {
         Navigator.pushReplacement(
           context,
@@ -87,13 +72,14 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up - Desafio Capyba'),
+        title: const Text('Create New Account'),
       ),
       backgroundColor: Colors.greenAccent,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Center(
             child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             /* if (arquivo != null) Anexo(arquivo: arquivo),
@@ -107,12 +93,14 @@ class _SignUpState extends State<SignUp> {
                 child: Text('Tire uma foto'),
               ),
             ), */
+            Image.asset('assets/capybaLogo.png', width: 100, height: 100),
             TextField(
                 controller: _createEmailController,
                 autofocus: true,
                 keyboardType: TextInputType.text,
                 style: TextStyle(color: Colors.green, fontSize: 20),
                 decoration: InputDecoration(
+                   icon: Icon(Icons.email_outlined),
                   labelText: "Email",
                   labelStyle: TextStyle(color: Colors.white),
                 )),
@@ -122,6 +110,7 @@ class _SignUpState extends State<SignUp> {
                 keyboardType: TextInputType.text,
                 style: TextStyle(color: Colors.green, fontSize: 20),
                 decoration: InputDecoration(
+                   icon: Icon(Icons.key_outlined),
                   labelText: "Password",
                   labelStyle: TextStyle(color: Colors.white),
                 )),
@@ -136,12 +125,12 @@ class _SignUpState extends State<SignUp> {
                         /*   final User UserLoggedIn = User(email, password);
                       print(UserLoggedIn); */
                         _signUp,
-                    child: Text('Sign up'),
+                    child: Text('Create new account >'),
                   ),
                 ),
                 TextButton(
                     onPressed: () => {Navigator.pushNamed(context, '/login')},
-                    child: Text("Already an user? Sign in"))
+                    child: Text("Already an user? Login >"))
               ],
             )
           ],
