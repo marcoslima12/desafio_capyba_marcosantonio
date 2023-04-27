@@ -22,21 +22,41 @@ class SignUp extends StatefulWidget {
 final TextEditingController _createEmailController = TextEditingController();
 final TextEditingController _createPasswordController = TextEditingController();
 
+/* var acs = ActionCodeSettings(
+    // URL you want to redirect back to. The domain (www.example.com) for this
+    // URL must be whitelisted in the Firebase Console.
+    url: 'https://www.example.com/finishSignUp?cartId=1234',
+    // This must be true
+    handleCodeInApp: true,
+    iOSBundleId: 'com.example.ios',
+    androidPackageName: 'com.example.android',
+    // installIfNotAvailable
+    androidInstallApp: true,
+    // minimumVersion
+    androidMinimumVersion: '12'); */
+
 class _SignUpState extends State<SignUp> {
   void _signUp() async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _createEmailController.text,
         password: _createPasswordController.text,
       );
-
-    User? user = userCredential.user;
-    if (user != null) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoggedArea(user)),
-      );
-    }
+     /*  FirebaseAuth.instance.sendSignInLinkToEmail(
+          email: _createEmailController.text, actionCodeSettings: acs); */
+      User? user = userCredential.user;
+     /*  User? otherUser = FirebaseAuth.instance.currentUser; */
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoggedArea(user)),
+        );
+      }
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        await currentUser.sendEmailVerification();
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
