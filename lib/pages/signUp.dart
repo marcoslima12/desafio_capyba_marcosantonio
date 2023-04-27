@@ -51,9 +51,13 @@ class _SignUpState extends State<SignUp> {
         print('The account already exists for that email.');
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('This email is already in use')));
+      } else if (e.code == 'invalid-email') {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Invalid email. Try again')));
+      }else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Something went wrong. Please, tray again')));
       }
-    } catch (e) {
-      print(e);
     }
   }
 
@@ -100,7 +104,7 @@ class _SignUpState extends State<SignUp> {
                 keyboardType: TextInputType.text,
                 style: TextStyle(color: Colors.green, fontSize: 20),
                 decoration: InputDecoration(
-                   icon: Icon(Icons.email_outlined),
+                  icon: Icon(Icons.email_outlined),
                   labelText: "Email",
                   labelStyle: TextStyle(color: Colors.white),
                 )),
@@ -110,7 +114,7 @@ class _SignUpState extends State<SignUp> {
                 keyboardType: TextInputType.text,
                 style: TextStyle(color: Colors.green, fontSize: 20),
                 decoration: InputDecoration(
-                   icon: Icon(Icons.key_outlined),
+                  icon: Icon(Icons.key_outlined),
                   labelText: "Password",
                   labelStyle: TextStyle(color: Colors.white),
                 )),

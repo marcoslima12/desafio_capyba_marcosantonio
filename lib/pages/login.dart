@@ -35,10 +35,16 @@ class _LoginState extends State<Login> {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Email not found. Sign up')));
+            .showSnackBar(SnackBar(content: Text('E-mail not found. Please, register')));
       } else if (e.code == 'wrong-password') {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Wrog password. Try again')));
+            .showSnackBar(SnackBar(content: Text('Wrong password. Try again')));
+      } else if (e.code == 'invalid-email') {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Invalid email. Try again')));
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Something went wrong. Please, tray again')));
       }
     }
   }
