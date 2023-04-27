@@ -72,7 +72,7 @@ class LoggedArea extends StatelessWidget {
             body: TabBarView(
               children: [
                 ElevatedButton(onPressed: _signOut, child: Text('SAIR')),
-                Text('VERIRICA TEU EMAIL!!'),
+                Center(child: Text('VERIRICA TEU EMAIL!!')),
               ],
             ),
           ));
