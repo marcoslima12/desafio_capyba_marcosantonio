@@ -50,45 +50,51 @@ class _LoginState extends State<Login> {
       backgroundColor: Colors.greenAccent,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
-        child: Center(
-            child: Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Image.asset('assets/capybaLogo.png', width: 100, height: 100),
             TextField(
                 controller: _emailController,
                 autofocus: true,
                 keyboardType: TextInputType.text,
                 style: TextStyle(color: Colors.green, fontSize: 20),
                 decoration: InputDecoration(
-                  labelText: "Email",
+                  icon: Icon(Icons.email_outlined),
+                  labelText: "E-mail",
                   labelStyle: TextStyle(color: Colors.white),
+                  
                 )),
             TextField(
                 controller: _passwordController,
                 autofocus: true,
                 keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.green, fontSize: 20),
+                style: TextStyle(color: Colors.white, fontSize: 20),
                 decoration: InputDecoration(
+                  icon: Icon(Icons.key_outlined),
                   labelText: "Password",
                   labelStyle: TextStyle(color: Colors.white),
                 )),
             Column(
               children: [
                 Padding(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: 20),
                     child: ElevatedButton(
                       onPressed: _signIn,
-                      child: Text('Sign in'),
+                      child: Text('Login to my account >'),
                     )),
                 TextButton(
                     onPressed: () => {Navigator.pushNamed(context, '/signup')},
-                    child: Text("Not a user yet? Create an account"))
+                    child: Text("New here? Create an account >"))
               ],
             )
           ],
-        )),
+        ),
       ),
     );
   }
 }
+
+
+
