@@ -11,6 +11,7 @@ class LoggedArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? currentUser = FirebaseAuth.instance.currentUser;
     void _signOut() async {
       try {
         await FirebaseAuth.instance.signOut();
@@ -23,7 +24,7 @@ class LoggedArea extends StatelessWidget {
       }
     }
 
-    if (1 == 2) {
+    if (currentUser != null && currentUser.emailVerified) {
       return DefaultTabController(
           length: 2,
           child: Scaffold(
@@ -44,14 +45,13 @@ class LoggedArea extends StatelessWidget {
             body: TabBarView(
               children: [
                 ElevatedButton(onPressed: _signOut, child: Text('SAIR')),
-                Column(
-                  children: [Text('Oi'), Text('Oii')],
+                Center(
+                  child: Text('Your email was verified'),
                 ),
               ],
             ),
           ));
-    }
-    else {
+    } else {
       return DefaultTabController(
           length: 2,
           child: Scaffold(
