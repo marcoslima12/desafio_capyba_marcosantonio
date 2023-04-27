@@ -23,32 +23,60 @@ class LoggedArea extends StatelessWidget {
       }
     }
 
-    return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          drawer: DrawerWidget(),
-          appBar: AppBar(
-            title: Text('Logged Area - Desafio Capyba'),
-            bottom: const TabBar(
-              tabs: [
-                Tab(
-                  child: Text('Home'),
-                ),
-                Tab(
-                  child: Text('Restrict'),
+    if (1 == 2) {
+      return DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            drawer: DrawerWidget(),
+            appBar: AppBar(
+              title: Text('Logged Area - Desafio Capyba'),
+              bottom: const TabBar(
+                tabs: [
+                  Tab(
+                    child: Text('Home'),
+                  ),
+                  Tab(
+                    child: Text('Restrict'),
+                  ),
+                ],
+              ),
+            ),
+            body: TabBarView(
+              children: [
+                ElevatedButton(onPressed: _signOut, child: Text('SAIR')),
+                Column(
+                  children: [Text('Oi'), Text('Oii')],
                 ),
               ],
             ),
-          ),
-          body: TabBarView(
-            children: [
-              ElevatedButton(onPressed: _signOut, child: Text('SAIR')),
-              Column(
-                children: [Text('Oi'), Text('Oii')],
+          ));
+    }
+    else {
+      return DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            drawer: DrawerWidget(),
+            appBar: AppBar(
+              title: Text('Logged Area - Desafio Capyba'),
+              bottom: const TabBar(
+                tabs: [
+                  Tab(
+                    child: Text('Home'),
+                  ),
+                  Tab(
+                    child: Text('Restrict'),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ));
+            ),
+            body: TabBarView(
+              children: [
+                ElevatedButton(onPressed: _signOut, child: Text('SAIR')),
+                Text('VERIRICA TEU EMAIL!!'),
+              ],
+            ),
+          ));
+    }
   }
 }
 
