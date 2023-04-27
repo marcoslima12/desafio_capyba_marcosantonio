@@ -46,7 +46,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login - Desafio Capyba')),
+      appBar: AppBar(title: const Text('Login')),
       backgroundColor: Colors.greenAccent,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
                       child: Text('Login to my account >'),
                     )),
                 TextButton(
-                    onPressed: () => {Navigator.pushNamed(context, '/signup')},
+                    onPressed: () => {Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUp()))},
                     child: Text("New here? Create an account >"))
               ],
             )
