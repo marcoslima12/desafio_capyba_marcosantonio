@@ -64,27 +64,32 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset('assets/capybaLogo.png', width: 100, height: 100),
-            TextField(
-                controller: _emailController,
-                autofocus: true,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.green, fontSize: 20),
-                decoration: InputDecoration(
-                  icon: Icon(Icons.email_outlined),
-                  labelText: "E-mail",
-                  labelStyle: TextStyle(color: Colors.white),
-                )),
-            TextField(
-              obscureText: true,
-                controller: _passwordController,
-                autofocus: true,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.white, fontSize: 20),
-                decoration: InputDecoration(
-                  icon: Icon(Icons.key_outlined),
-                  labelText: "Password",
-                  labelStyle: TextStyle(color: Colors.white),
-                )),
+            Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 5),
+                child: TextField(
+                    controller: _emailController,
+                    autofocus: true,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(color: Colors.green, fontSize: 20),
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.email_outlined),
+                        labelText: "Email",
+                        labelStyle: TextStyle(color: Colors.white),
+                        border: OutlineInputBorder(gapPadding: 5)))),
+            Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 5),
+              child: TextField(
+                  controller: _passwordController,
+                  autofocus: true,
+                  obscureText: true,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(color: Colors.green, fontSize: 20),
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.key_outlined),
+                      labelText: "Password",
+                      labelStyle: TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(gapPadding: 5))),
+            ),
             Column(children: [
               Padding(
                   padding: EdgeInsets.only(top: 20),
