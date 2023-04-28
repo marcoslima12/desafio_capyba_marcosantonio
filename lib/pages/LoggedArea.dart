@@ -30,7 +30,7 @@ class LoggedArea extends StatelessWidget {
           child: Scaffold(
             drawer: DrawerWidget(),
             appBar: AppBar(
-              title: Text('Logged Area - Desafio Capyba'),
+              title: Text('Welcome'),
               bottom: const TabBar(
                 tabs: [
                   Tab(
@@ -57,7 +57,7 @@ class LoggedArea extends StatelessWidget {
           child: Scaffold(
             drawer: DrawerWidget(),
             appBar: AppBar(
-              title: Text('Logged Area - Desafio Capyba'),
+              title: Text('Welcome'),
               bottom: const TabBar(
                 tabs: [
                   Tab(
