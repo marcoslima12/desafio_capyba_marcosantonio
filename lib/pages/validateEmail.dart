@@ -3,18 +3,32 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class ValidateEmail extends StatelessWidget {
+class ValidateEmail extends StatefulWidget {
   const ValidateEmail({super.key});
 
   @override
+  State<ValidateEmail> createState() => _ValidateEmailState();
+}
+
+class _ValidateEmailState extends State<ValidateEmail> {
+  @override
   Widget build(BuildContext context) {
     User? currentUser = FirebaseAuth.instance.currentUser;
+    bool loading = false;
 
     void _validateEmail() async {
-      if (currentUser != null) {
-        await currentUser.sendEmailVerification();
+      setState(() => loading = true);
+      try {
+        if (currentUser != null) {
+          await currentUser.sendEmailVerification();
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Link sent to ${currentUser.email}')));
+        }
+      } catch (e) {
+        print(e);
+        setState(() => loading = false);
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Link sent to ${currentUser.email}')));
+            SnackBar(content: Text('Something went wrong. Please try again.')));
       }
     }
 
@@ -26,12 +40,38 @@ class ValidateEmail extends StatelessWidget {
           ));
     } else {
       return Scaffold(
-        appBar: AppBar(title: Text('Email validation - Desafio Capyba')),
-        body: Center(
-            child: ElevatedButton(
-          onPressed: _validateEmail,
-          child: Text('send another link'),
-        )),
+        appBar: AppBar(title: Text('E-mail verification')),
+        body: Padding(
+            padding: EdgeInsets.all(30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.green),
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    'You must verify your e-mail, so you can have access to everything.',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: _validateEmail,
+                  child: Text('Send validation link to ${currentUser!.email}'),
+                ),
+                (loading)
+                    ? CircularProgressIndicator(color: Colors.green)
+                    : CircularProgressIndicator(color: Colors.transparent)
+              ],
+            )),
       );
     }
   }
