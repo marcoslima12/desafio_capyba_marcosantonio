@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:desafio_capyba_marcosantonio/pages/LoggedArea.dart';
+import 'package:desafio_capyba_marcosantonio/pages/login.dart';
 import 'package:desafio_capyba_marcosantonio/widgets/Anexo.dart';
 import 'package:desafio_capyba_marcosantonio/pages/photoPreview.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +22,12 @@ class SignUp extends StatefulWidget {
 
 final TextEditingController _createEmailController = TextEditingController();
 final TextEditingController _createPasswordController = TextEditingController();
+bool isLoading = false;
 
 class _SignUpState extends State<SignUp> {
   void _signUp() async {
     try {
+      setState(() => isLoading = true);
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _createEmailController.text,
@@ -43,6 +46,7 @@ class _SignUpState extends State<SignUp> {
         await currentUser.sendEmailVerification();
       }
     } on FirebaseAuthException catch (e) {
+      setState(() => isLoading = false);
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
         ScaffoldMessenger.of(context)
@@ -54,9 +58,9 @@ class _SignUpState extends State<SignUp> {
       } else if (e.code == 'invalid-email') {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('Invalid email. Try again')));
-      }else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Something went wrong. Please, tray again')));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Something went wrong. Please, tray again')));
       }
     }
   }
@@ -133,8 +137,14 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 TextButton(
-                    onPressed: () => {Navigator.pushNamed(context, '/login')},
-                    child: Text("Already an user? Login >"))
+                    onPressed: () => {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => Login()))
+                        },
+                    child: Text("Already an user? Login >")),
+                (isLoading)
+                    ? CircularProgressIndicator(color: Colors.white)
+                    : CircularProgressIndicator(color: Colors.transparent),
               ],
             )
           ],

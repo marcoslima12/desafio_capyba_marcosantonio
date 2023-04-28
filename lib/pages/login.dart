@@ -17,10 +17,12 @@ class Login extends StatefulWidget {
 
 final TextEditingController _emailController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
+bool isLoading = false;
 
 class _LoginState extends State<Login> {
   void _signIn() async {
     try {
+      setState(() => isLoading = true);
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text,
@@ -33,9 +35,10 @@ class _LoginState extends State<Login> {
         (Route<dynamic> route) => false,
       );
     } on FirebaseAuthException catch (e) {
+      setState(() => isLoading = false);
       if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('E-mail not found. Please, register')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('E-mail not found. Please, register')));
       } else if (e.code == 'wrong-password') {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('Wrong password. Try again')));
@@ -43,8 +46,8 @@ class _LoginState extends State<Login> {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('Invalid email. Try again')));
       } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Something went wrong. Please, tray again')));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Something went wrong. Please, tray again')));
       }
     }
   }
@@ -70,7 +73,6 @@ class _LoginState extends State<Login> {
                   icon: Icon(Icons.email_outlined),
                   labelText: "E-mail",
                   labelStyle: TextStyle(color: Colors.white),
-                  
                 )),
             TextField(
                 controller: _passwordController,
@@ -82,25 +84,26 @@ class _LoginState extends State<Login> {
                   labelText: "Password",
                   labelStyle: TextStyle(color: Colors.white),
                 )),
-            Column(
-              children: [
-                Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: ElevatedButton(
-                      onPressed: _signIn,
-                      child: Text('Login to my account >'),
-                    )),
-                TextButton(
-                    onPressed: () => {Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUp()))},
-                    child: Text("New here? Create an account >"))
-              ],
-            )
+            Column(children: [
+              Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: ElevatedButton(
+                    onPressed: _signIn,
+                    child: Text('Login to my account >'),
+                  )),
+              TextButton(
+                  onPressed: () => {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => SignUp()))
+                      },
+                  child: Text("New here? Create an account >")),
+              (isLoading)
+                  ? CircularProgressIndicator(color: Colors.white)
+                  : CircularProgressIndicator(color: Colors.transparent),
+            ])
           ],
         ),
       ),
     );
   }
 }
-
-
-
