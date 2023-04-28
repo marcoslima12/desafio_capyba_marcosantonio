@@ -75,6 +75,7 @@ class _LoginState extends State<Login> {
                   labelStyle: TextStyle(color: Colors.white),
                 )),
             TextField(
+              obscureText: true,
                 controller: _passwordController,
                 autofocus: true,
                 keyboardType: TextInputType.text,

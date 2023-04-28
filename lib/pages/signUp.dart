@@ -115,6 +115,7 @@ class _SignUpState extends State<SignUp> {
             TextField(
                 controller: _createPasswordController,
                 autofocus: true,
+                obscureText: true,
                 keyboardType: TextInputType.text,
                 style: TextStyle(color: Colors.green, fontSize: 20),
                 decoration: InputDecoration(
