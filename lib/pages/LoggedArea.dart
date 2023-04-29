@@ -5,11 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoggedArea extends StatelessWidget {
+class LoggedArea extends StatefulWidget {
   final User _user;
-
   LoggedArea(this._user);
 
+  @override
+  State<LoggedArea> createState() => _LoggedAreaState();
+}
+
+class _LoggedAreaState extends State<LoggedArea> {
   @override
   Widget build(BuildContext context) {
     User? currentUser = FirebaseAuth.instance.currentUser;
@@ -25,21 +29,12 @@ class LoggedArea extends StatelessWidget {
       }
     }
 
-    void _redirectToValidateEmail(BuildContext context) async {
-      await Future.delayed(Duration(milliseconds: 4000));
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => ValidateEmail()),
-        );
-    }
-
     Future<bool> _checkEmailVerification(BuildContext context) async {
       User? currentUser = FirebaseAuth.instance.currentUser;
       await currentUser?.reload();
       if (currentUser?.emailVerified == true) {
         return true;
       } else {
-        _redirectToValidateEmail(context);
         return false;
       }
     }
@@ -79,7 +74,7 @@ class LoggedArea extends StatelessWidget {
                         } else if (snapshot.data == true) {
                           return Center(child: Text('ok'));
                         } else {
-                          return Center(child: Text('E-mail não verificado. Redirecting you to Validate your email'));
+                          return Center(child: Text('E-mail não verificado'));
                         }
                       },
                     ),
