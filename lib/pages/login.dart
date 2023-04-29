@@ -17,10 +17,12 @@ class Login extends StatefulWidget {
 
 final TextEditingController _emailController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
+bool isLoading = false;
 
 class _LoginState extends State<Login> {
   void _signIn() async {
     try {
+      setState(() => isLoading = true);
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text,
@@ -33,12 +35,19 @@ class _LoginState extends State<Login> {
         (Route<dynamic> route) => false,
       );
     } on FirebaseAuthException catch (e) {
+      setState(() => isLoading = false);
       if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Email not found. Sign up')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('E-mail not found. Please, register')));
       } else if (e.code == 'wrong-password') {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Wrog password. Try again')));
+            .showSnackBar(SnackBar(content: Text('Wrong password. Try again')));
+      } else if (e.code == 'invalid-email') {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Invalid email. Try again')));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Something went wrong. Please, tray again')));
       }
     }
   }
@@ -46,48 +55,60 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login - Desafio Capyba')),
+      appBar: AppBar(title: const Text('Login')),
       backgroundColor: Colors.greenAccent,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
-        child: Center(
-            child: Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextField(
-                controller: _emailController,
-                autofocus: true,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.green, fontSize: 20),
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  labelStyle: TextStyle(color: Colors.white),
-                )),
-            TextField(
-                controller: _passwordController,
-                autofocus: true,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.green, fontSize: 20),
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  labelStyle: TextStyle(color: Colors.white),
-                )),
-            Column(
-              children: [
-                Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: ElevatedButton(
-                      onPressed: _signIn,
-                      child: Text('Sign in'),
-                    )),
-                TextButton(
-                    onPressed: () => {Navigator.pushNamed(context, '/signup')},
-                    child: Text("Not a user yet? Create an account"))
-              ],
-            )
+            Image.asset('assets/capybaLogo.png', width: 100, height: 100),
+            Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 5),
+                child: TextField(
+                    controller: _emailController,
+                    autofocus: true,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(color: Colors.green, fontSize: 20),
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.email_outlined),
+                        labelText: "Email",
+                        labelStyle: TextStyle(color: Colors.white),
+                        border: OutlineInputBorder(gapPadding: 5)))),
+            Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 5),
+              child: TextField(
+                  controller: _passwordController,
+                  autofocus: true,
+                  obscureText: true,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(color: Colors.green, fontSize: 20),
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.key_outlined),
+                      labelText: "Password",
+                      labelStyle: TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(gapPadding: 5))),
+            ),
+            Column(children: [
+              Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: ElevatedButton(
+                    onPressed: _signIn,
+                    child: Text('Login to my account >'),
+                  )),
+              TextButton(
+                  onPressed: () => {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => SignUp()))
+                      },
+                  child: Text("New here? Create an account >")),
+              (isLoading)
+                  ? CircularProgressIndicator(color: Colors.white)
+                  : CircularProgressIndicator(color: Colors.transparent),
+            ])
           ],
-        )),
+        ),
       ),
     );
   }
