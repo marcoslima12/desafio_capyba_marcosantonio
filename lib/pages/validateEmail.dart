@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../widgets/MenuLateral.dart';
+
 class ValidateEmail extends StatefulWidget {
   const ValidateEmail({super.key});
 
@@ -32,14 +34,15 @@ class _ValidateEmailState extends State<ValidateEmail> {
       }
     }
 
-    if (currentUser != null && currentUser.emailVerified) {
+    /* if (currentUser != null && currentUser.emailVerified) {
       return Scaffold(
           appBar: AppBar(title: Text('Email validation - Desafio Capyba')),
           body: Center(
             child: Text('Your email is already verified!'),
           ));
-    } else {
+    } else { */
       return Scaffold(
+        drawer: DrawerWidget(),
         appBar: AppBar(title: Text('E-mail verification')),
         body: Padding(
             padding: EdgeInsets.all(30),
@@ -75,4 +78,5 @@ class _ValidateEmailState extends State<ValidateEmail> {
       );
     }
   }
-}
+/* }
+ */
