@@ -17,17 +17,6 @@ class _LoggedAreaState extends State<LoggedArea> {
   @override
   Widget build(BuildContext context) {
     User? currentUser = FirebaseAuth.instance.currentUser;
-    void _signOut() async {
-      try {
-        await FirebaseAuth.instance.signOut();
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Login()),
-        );
-      } catch (e) {
-        print(e);
-      }
-    }
 
     Future<bool> _checkEmailVerification(BuildContext context) async {
       User? currentUser = FirebaseAuth.instance.currentUser;
@@ -58,7 +47,7 @@ class _LoggedAreaState extends State<LoggedArea> {
           ),
           body: TabBarView(
             children: [
-              ElevatedButton(onPressed: _signOut, child: Text('SAIR')),
+              Center(child: Text('Home')),
               currentUser != null && currentUser.emailVerified
                   ? Center(child: Text('ok'))
                   : FutureBuilder(
