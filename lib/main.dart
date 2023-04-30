@@ -1,3 +1,4 @@
+import 'package:desafio_capyba_marcosantonio/pages/EditProfile.dart';
 import 'package:desafio_capyba_marcosantonio/pages/LoggedArea.dart';
 import 'package:desafio_capyba_marcosantonio/pages/login.dart';
 import 'package:desafio_capyba_marcosantonio/pages/signUp.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => SignUp(),
         '/validate-email': (context) => ValidateEmail(),
         '/my-profile': (context) => MyProfile(),
+        '/edit-profile': (context) => EditProfile(),
       
       },
     );

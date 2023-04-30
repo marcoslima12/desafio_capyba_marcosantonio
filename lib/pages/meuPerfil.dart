@@ -57,7 +57,9 @@ class _MyProfileState extends State<MyProfile> {
             ),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/edit-profile');
+            },
             child: Padding(
               padding: EdgeInsets.only(top: 15, left: 30, bottom: 15),
               child: Row(children: [
