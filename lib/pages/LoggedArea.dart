@@ -28,9 +28,9 @@ class LoggedArea extends StatelessWidget {
     void _redirectToValidateEmail(BuildContext context) async {
       await Future.delayed(Duration(milliseconds: 4000));
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => ValidateEmail()),
-        );
+        context,
+        MaterialPageRoute(builder: (context) => ValidateEmail()),
+      );
     }
 
     Future<bool> _checkEmailVerification(BuildContext context) async {
@@ -79,7 +79,9 @@ class LoggedArea extends StatelessWidget {
                         } else if (snapshot.data == true) {
                           return Center(child: Text('ok'));
                         } else {
-                          return Center(child: Text('E-mail não verificado. Redirecting you to Validate your email'));
+                          return Center(
+                              child: Text(
+                                  'E-mail não verificado. Redirecting you to Validate your email'));
                         }
                       },
                     ),

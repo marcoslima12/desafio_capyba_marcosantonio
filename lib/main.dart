@@ -1,4 +1,6 @@
+import 'package:desafio_capyba_marcosantonio/pages/EditProfile.dart';
 import 'package:desafio_capyba_marcosantonio/pages/LoggedArea.dart';
+import 'package:desafio_capyba_marcosantonio/pages/changePassword.dart';
 import 'package:desafio_capyba_marcosantonio/pages/login.dart';
 import 'package:desafio_capyba_marcosantonio/pages/signUp.dart';
 import 'package:desafio_capyba_marcosantonio/pages/validateEmail.dart';
@@ -7,6 +9,8 @@ import 'package:desafio_capyba_marcosantonio/pages/welcome.dart';
 import 'package:get/get.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+
+import 'pages/meuPerfil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +31,10 @@ class MyApp extends StatelessWidget {
         '/login': (context) => Login(),
         '/signup': (context) => SignUp(),
         '/validate-email': (context) => ValidateEmail(),
+        '/my-profile': (context) => MyProfile(),
+        '/edit-profile': (context) => EditProfile(),
+         '/change-password': (context) => ChangePassword(),
+      
       },
     );
   }
