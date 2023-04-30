@@ -46,7 +46,7 @@ class _LoginState extends State<Login> {
             .showSnackBar(SnackBar(content: Text('Wrong password. Try again')));
       } else if (e.code == 'invalid-email') {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Invalid email. Try again')));
+            .showSnackBar(SnackBar(content: Text('Invalid e-mail. Try again')));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Something went wrong. Please, tray again')));

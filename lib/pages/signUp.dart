@@ -25,7 +25,6 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _createEmailController = TextEditingController();
   final TextEditingController _createPasswordController =
       TextEditingController();
-  final TextEditingController _createPhoneController = TextEditingController();
   final TextEditingController _createNameController = TextEditingController();
 
   bool isLoading = false;
@@ -38,9 +37,10 @@ class _SignUpState extends State<SignUp> {
         email: _createEmailController.text,
         password: _createPasswordController.text,
       );
-
       User? user = userCredential.user;
       if (user != null) {
+        await user.updateDisplayName(_createNameController.text);
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => LoggedArea(user)),
@@ -49,6 +49,8 @@ class _SignUpState extends State<SignUp> {
       User? currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser != null) {
         await currentUser.sendEmailVerification();
+        print(currentUser.displayName);
+        print(currentUser.phoneNumber);
       }
     } on FirebaseAuthException catch (e) {
       setState(() => isLoading = false);
@@ -129,17 +131,6 @@ class _SignUpState extends State<SignUp> {
                       autofocus: true,
                       decoration: InputDecoration(
                           labelText: "Password",
-                          labelStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(gapPadding: 5)),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      controller: _createPhoneController,
-                      autofocus: true,
-                      decoration: InputDecoration(
-                          labelText: "Phone",
                           labelStyle: TextStyle(color: Colors.white),
                           border: OutlineInputBorder(gapPadding: 5)),
                     ),
