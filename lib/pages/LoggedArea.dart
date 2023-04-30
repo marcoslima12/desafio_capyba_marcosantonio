@@ -5,25 +5,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoggedArea extends StatelessWidget {
+class LoggedArea extends StatefulWidget {
   final User _user;
-
   LoggedArea(this._user);
 
   @override
+  State<LoggedArea> createState() => _LoggedAreaState();
+}
+
+class _LoggedAreaState extends State<LoggedArea> {
+  @override
   Widget build(BuildContext context) {
     User? currentUser = FirebaseAuth.instance.currentUser;
-    void _signOut() async {
-      try {
-        await FirebaseAuth.instance.signOut();
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Login()),
-        );
-      } catch (e) {
-        print(e);
-      }
-    }
 
     void _redirectToValidateEmail(BuildContext context) async {
       await Future.delayed(Duration(milliseconds: 4000));
@@ -39,7 +32,6 @@ class LoggedArea extends StatelessWidget {
       if (currentUser?.emailVerified == true) {
         return true;
       } else {
-        _redirectToValidateEmail(context);
         return false;
       }
     }
@@ -63,7 +55,7 @@ class LoggedArea extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              ElevatedButton(onPressed: _signOut, child: Text('SAIR')),
+              Center(child: Text('Home')),
               currentUser != null && currentUser.emailVerified
                   ? Center(child: Text('ok'))
                   : FutureBuilder(
@@ -79,9 +71,7 @@ class LoggedArea extends StatelessWidget {
                         } else if (snapshot.data == true) {
                           return Center(child: Text('ok'));
                         } else {
-                          return Center(
-                              child: Text(
-                                  'E-mail não verificado. Redirecting you to Validate your email'));
+                          return Center(child: Text('E-mail não verificado'));
                         }
                       },
                     ),
