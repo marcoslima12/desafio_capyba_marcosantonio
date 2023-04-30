@@ -17,6 +17,25 @@ class _LoggedAreaState extends State<LoggedArea> {
   @override
   Widget build(BuildContext context) {
     User? currentUser = FirebaseAuth.instance.currentUser;
+    void _signOut() async {
+      try {
+        await FirebaseAuth.instance.signOut();
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+        );
+      } catch (e) {
+        print(e);
+      }
+    }
+
+    void _redirectToValidateEmail(BuildContext context) async {
+      await Future.delayed(Duration(milliseconds: 4000));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => ValidateEmail()),
+      );
+    }
 
     Future<bool> _checkEmailVerification(BuildContext context) async {
       User? currentUser = FirebaseAuth.instance.currentUser;
@@ -63,7 +82,9 @@ class _LoggedAreaState extends State<LoggedArea> {
                         } else if (snapshot.data == true) {
                           return Center(child: Text('ok'));
                         } else {
-                          return Center(child: Text('E-mail não verificado'));
+                          return Center(
+                              child: Text(
+                                  'E-mail não verificado. Redirecting you to Validate your email'));
                         }
                       },
                     ),

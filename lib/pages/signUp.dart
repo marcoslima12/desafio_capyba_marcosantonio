@@ -20,11 +20,15 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
-final TextEditingController _createEmailController = TextEditingController();
-final TextEditingController _createPasswordController = TextEditingController();
-bool isLoading = false;
-
 class _SignUpState extends State<SignUp> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _createEmailController = TextEditingController();
+  final TextEditingController _createPasswordController =
+      TextEditingController();
+  final TextEditingController _createNameController = TextEditingController();
+
+  bool isLoading = false;
+
   void _signUp() async {
     try {
       setState(() => isLoading = true);
@@ -33,9 +37,10 @@ class _SignUpState extends State<SignUp> {
         email: _createEmailController.text,
         password: _createPasswordController.text,
       );
-
       User? user = userCredential.user;
       if (user != null) {
+        await user.updateDisplayName(_createNameController.text);
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => LoggedArea(user)),
@@ -44,6 +49,8 @@ class _SignUpState extends State<SignUp> {
       User? currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser != null) {
         await currentUser.sendEmailVerification();
+        print(currentUser.displayName);
+        print(currentUser.phoneNumber);
       }
     } on FirebaseAuthException catch (e) {
       setState(() => isLoading = false);
@@ -83,78 +90,72 @@ class _SignUpState extends State<SignUp> {
         title: const Text('Create New Account'),
       ),
       backgroundColor: Colors.greenAccent,
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Center(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            /* if (arquivo != null) Anexo(arquivo: arquivo),
-            ElevatedButton.icon(
-              onPressed: () => Get.to(
-                () => CameraCamera(onFile: (file) => showPreview(file)),
-              ),
-              icon: Icon(Icons.camera_alt),
-              label: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text('Tire uma foto'),
-              ),
-            ), */
-            Image.asset('assets/capybaLogo.png', width: 100, height: 100),
-            Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 5),
-                child: TextField(
-                    controller: _createEmailController,
-                    autofocus: true,
-                    keyboardType: TextInputType.text,
-                    style: TextStyle(color: Colors.green, fontSize: 20),
-                    decoration: InputDecoration(
-                        icon: Icon(Icons.email_outlined),
-                        labelText: "Email",
-                        labelStyle: TextStyle(color: Colors.white),
-                        border: OutlineInputBorder(gapPadding: 5)))),
-            Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 5),
-              child: TextField(
-                  controller: _createPasswordController,
-                  autofocus: true,
-                  obscureText: true,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(color: Colors.green, fontSize: 20),
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.key_outlined),
-                      labelText: "Password",
-                      labelStyle: TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(gapPadding: 5))),
-            ),
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: ElevatedButton(
-                    onPressed:
-                        /* final String email = _createEmailController.text;
-                      final String password = _createPasswordController.text; */
-                        /*   final User UserLoggedIn = User(email, password);
-                      print(UserLoggedIn); */
-                        _signUp,
-                    child: Text('Create new account >'),
-                  ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Center(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset('assets/capybaLogo.png', width: 100, height: 100),
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _createNameController,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                          labelText: "Name",
+                          labelStyle: TextStyle(color: Colors.white),
+                          border: OutlineInputBorder(gapPadding: 5)),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      controller: _createEmailController,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                          labelText: "Email",
+                          labelStyle: TextStyle(color: Colors.white),
+                          border: OutlineInputBorder(gapPadding: 5)),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      controller: _createPasswordController,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                          labelText: "Password",
+                          labelStyle: TextStyle(color: Colors.white),
+                          border: OutlineInputBorder(gapPadding: 5)),
+                    ),
+                  ],
                 ),
-                TextButton(
-                    onPressed: () => {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => Login()))
-                        },
-                    child: Text("Already an user? Login >")),
-                (isLoading)
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : CircularProgressIndicator(color: Colors.transparent),
-              ],
-            )
-          ],
-        )),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: ElevatedButton(
+                  onPressed: _signUp,
+                  child: Text('Create new account >'),
+                ),
+              ),
+              TextButton(
+                  onPressed: () => {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => Login()))
+                      },
+                  child: Text("Already an user? Login >")),
+              /* (isLoading)
+                  ? CircularProgressIndicator(color: Colors.white)
+                  : CircularProgressIndicator(color: Colors.transparent), */
+            ],
+          )),
+        ),
       ),
     );
   }
