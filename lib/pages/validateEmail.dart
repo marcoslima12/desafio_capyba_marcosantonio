@@ -35,39 +35,17 @@ class _ValidateEmailState extends State<ValidateEmail> {
     }
 
     return Scaffold(
-      drawer: DrawerWidget(),
-      appBar: AppBar(title: Text('E-mail verification')),
-      body: Padding(
-          padding: EdgeInsets.all(30),
+        drawer: DrawerWidget(),
+        appBar: AppBar(title: Text('E-mail verification')),
+        body: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.green),
-                  borderRadius: BorderRadius.circular(4.0),
-                ),
-                child: Text(
-                  textAlign: TextAlign.center,
-                  'You must verify your e-mail, so you can have access to everything.',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: _validateEmail,
-                child: Text('Send validation link to ${currentUser!.email}'),
-              ),
-              (loading)
-                  ? CircularProgressIndicator(color: Colors.green)
-                  : CircularProgressIndicator(color: Colors.transparent)
+              Icon(Icons.email),
+              Text('Check your mail', style: TextStyle(fontSize: 25)),
+              Text(
+                  'We hve sent a password recover instructions to your email.'),
             ],
-          )),
-    );
+          ),
+        ));
   }
 }

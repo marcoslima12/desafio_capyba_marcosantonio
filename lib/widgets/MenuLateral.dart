@@ -79,6 +79,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             title: const Text('Validar email'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushNamed(context, '/validate-email');
             },
           ),
           Spacer(),
