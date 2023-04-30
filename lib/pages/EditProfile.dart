@@ -12,74 +12,100 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _newNameController = TextEditingController();
   final TextEditingController _newEmailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Edit Profile'),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 220,
-            color: Colors.greenAccent,
-            child: Padding(
-              padding: EdgeInsets.only(top: 30, left: 30, bottom: 10),
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          border: Border.all(color: Colors.white, width: 4)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Image.asset('assets/man.jpg',
-                            width: 90, height: 90),
-                      ),
+        appBar: AppBar(
+          title: Text('Edit Profile'),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 220,
+                color: Colors.greenAccent,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 30, left: 30, bottom: 10),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              border:
+                                  Border.all(color: Colors.white, width: 4)),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Image.asset('assets/man.jpg',
+                                width: 90, height: 90),
+                          ),
+                        ),
+                        TextButton(
+                            onPressed: () {},
+                            child: Text('Photo Upload +',
+                                style: TextStyle(fontSize: 18)))
+                      ]),
+                ),
+              ),
+              Form(
+                  key: _formKey,
+                  child: Padding(
+                    padding: EdgeInsets.all(30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        TextFormField(
+                          controller: _newNameController,
+                          autofocus: true,
+                          decoration: InputDecoration(
+                            labelText: 'Name',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextFormField(
+                          controller: _newEmailController,
+                          autofocus: true,
+                          decoration: InputDecoration(
+                            labelText: 'E-mail',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextFormField(
+                          controller: _newEmailController,
+                          autofocus: true,
+                          decoration: InputDecoration(
+                            labelText: 'Phone',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: Text('Save'),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                    TextButton(
-                        onPressed: () {},
-                        child: Text('Photo Upload +',
-                            style: TextStyle(fontSize: 18)))
-                  ]),
-            ),
+                  )),
+            ],
           ),
-          Padding(
-              padding:
-                  EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
-              child: TextField(
-                controller: _newNameController,
-                autofocus: true,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  labelText: 'Name',
-                  labelStyle: TextStyle(color: Colors.grey),
-                  border: UnderlineInputBorder(),
-                ),
-              )),
-          Padding(
-              padding:
-                  EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
-              child: TextField(
-                controller: _newEmailController,
-                autofocus: true,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  labelText: 'E-mail',
-                  labelStyle: TextStyle(color: Colors.grey),
-                  border: UnderlineInputBorder(),
-                ),
-              )),
-              ElevatedButton(onPressed: (){}, child: Text('Save')),
-        ],
-      ),
-    );
+        ));
   }
 }
