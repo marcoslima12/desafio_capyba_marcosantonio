@@ -15,6 +15,8 @@ class _EditProfileState extends State<EditProfile> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _newNameController = TextEditingController();
   final TextEditingController _newEmailController = TextEditingController();
+  final TextEditingController _newPhoneController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +86,7 @@ class _EditProfileState extends State<EditProfile> {
                           height: 15,
                         ),
                         TextFormField(
-                          controller: _newEmailController,
+                          controller: _newPhoneController,
                           autofocus: true,
                           decoration: InputDecoration(
                             labelText: 'Phone',
