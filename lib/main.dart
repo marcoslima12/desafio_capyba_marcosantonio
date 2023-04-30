@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
+import 'pages/meuPerfil.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -27,6 +29,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => Login(),
         '/signup': (context) => SignUp(),
         '/validate-email': (context) => ValidateEmail(),
+        '/my-profile': (context) => MyProfile(),
+      
       },
     );
   }
