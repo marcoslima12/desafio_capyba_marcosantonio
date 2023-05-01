@@ -20,74 +20,67 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController _passwordController = TextEditingController();
   bool checkedPassword = false;
 
-  void _SubmmitChanges() {
-    if (!(_newEmailController.text.trim() == '' ||
-        _newNameController.text.trim() == '')) {
-    } else {
-      //nao mostrar pop up. avisar
-    }
-  }
-
-  void _updateName() async {
-    try {
-      await currentUser!.updateDisplayName(_newNameController.text);
-      print('Novo nome: ${_newNameController.text}');
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Couldn't udpate your name. Please, try again.")));
-    }
-  }
-
-  void _updateEmail() async {
-    try {
-      await currentUser!.updateEmail(_newEmailController.text);
-      print('Novo email: ${_newEmailController.text}');
-      await currentUser!.sendEmailVerification();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('This email is already in use.')));
-      } else if (e.code == 'invalid-email') {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Invalid email. Try again')));
-      } else {
+  @override
+  Widget build(BuildContext context) {
+    String photoURL = currentUser?.photoURL ??
+        "https://media.istockphoto.com/id/1338134336/photo/headshot-portrait-african-30s-man-smile-look-at-camera.jpg?b=1&s=170667a&w=0&k=20&c=j-oMdWCMLx5rIx-_W33o3q3aW9CiAWEvv9XrJQ3fTMU=";
+    void _updateName() async {
+      try {
+        await currentUser!.updateDisplayName(_newNameController.text);
+        print('Novo nome: ${_newNameController.text}');
+        await currentUser!.reload();
+      } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('Something went wrong. Please, tray again')));
+            content: Text("Couldn't udpate your name. Please, try again.")));
       }
     }
-  }
 
-  void _checkPassword() async {
-    if (currentUser!.email != null) {
+    void _updateEmail() async {
       try {
-        UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: 'marcos.antonio@citi.org.br',
-          password: _passwordController.text,
-        );
-        if (userCredential.user != null) {
-          setState(() {
-            checkedPassword = true;
-          });
-        }
+        await currentUser!.updateEmail(_newEmailController.text);
+        print('Novo email: ${_newEmailController.text}');
+        await currentUser!.reload();
+        await currentUser!.sendEmailVerification();
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'wrong-password') {
-          setState(() {
-            checkedPassword = false;
-          });
+        if (e.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('This email is already in use.')));
+        } else if (e.code == 'invalid-email') {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Invalid email. Try again')));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Something went wrong. Please, tray again')));
         }
       }
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    String photoURL = currentUser?.photoURL ??
-        "https://media.istockphoto.com/id/1338134336/photo/headshot-portrait-african-30s-man-smile-look-at-camera.jpg?b=1&s=170667a&w=0&k=20&c=j-oMdWCMLx5rIx-_W33o3q3aW9CiAWEvv9XrJQ3fTMU=";
+    void _checkPassword() async {
+      if (currentUser!.email != null) {
+        try {
+          UserCredential userCredential =
+              await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: currentUser?.email ?? '',
+            password: _passwordController.text,
+          );
+
+          setState(() {
+            checkedPassword = true;
+          });
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'wrong-password') {
+            setState(() {
+              checkedPassword = false;
+            });
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('Something went wrong. Please, tray again')));
+          }
+        }
+      }
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Edit Profile'),

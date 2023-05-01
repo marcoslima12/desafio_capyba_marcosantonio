@@ -21,33 +21,50 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     void _checkPassword() async {
-      if (currentUser!.email != null) {
-        try {
-          UserCredential userCredential =
-              await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: 'marcos.antonio@citi.org.br',
-            password: _passwordController.text,
-          );
-          if (userCredential.user != null) {
-            setState(() {
-              checkedPassword = true;
-            });
-          }
-        } on FirebaseAuthException catch (e) {
-          if (e.code == 'wrong-password') {
-            setState(() {
-              checkedPassword = false;
-            });
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('Something went wrong. Please, tray again')));
-          }
+      try {
+        UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: currentUser?.email ?? '',
+          password: _passwordController.text,
+        );
+
+        setState(() {
+          checkedPassword = true;
+        });
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'wrong-password') {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Wrong password. Try again')));
         }
       }
     }
 
     void _updatePassword() async {
-      
+      try {
+        await currentUser!.updatePassword(_newPasswordController.text.trim());
+
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Succsess!'),
+              content: Text('Your password has been updated!'),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Fechar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+        await currentUser!.reload();
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Something went wrong. Please, tray again')));
+      }
     }
 
     return Scaffold(
@@ -108,8 +125,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                       onPressed: () {
                         _checkPassword();
                         if (checkedPassword == true) {
-                          if (_newPasswordController == _confirmNewPassword) {
-                            /* _updatePassword(); */
+                          if (_newPasswordController.text.trim() ==
+                              _confirmNewPassword.text.trim()) {
+                            _updatePassword();
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text("The passwords don't mach")));
