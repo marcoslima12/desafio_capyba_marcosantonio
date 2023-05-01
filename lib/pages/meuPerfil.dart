@@ -20,7 +20,10 @@ class _MyProfileState extends State<MyProfile> {
 
   @override
   Widget build(BuildContext context) {
-     void _signOut() async {
+    String photoURL = currentUser?.photoURL ??
+        "https://media.istockphoto.com/id/1338134336/photo/headshot-portrait-african-30s-man-smile-look-at-camera.jpg?b=1&s=170667a&w=0&k=20&c=j-oMdWCMLx5rIx-_W33o3q3aW9CiAWEvv9XrJQ3fTMU=";
+
+    void _signOut() async {
       try {
         await FirebaseAuth.instance.signOut();
         Navigator.pushReplacement(
@@ -31,7 +34,7 @@ class _MyProfileState extends State<MyProfile> {
         print(e);
       }
     }
-    
+
     return Scaffold(
         drawer: DrawerWidget(),
         appBar: AppBar(
@@ -53,13 +56,12 @@ class _MyProfileState extends State<MyProfile> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
                           border: Border.all(color: Colors.white, width: 4)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Image.asset('assets/man.jpg',
-                            width: 90, height: 90),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(photoURL),
+                        radius: 50,
                       ),
                     ),
-                    Text('Marcos Antonio',
+                    Text('${currentUser!.displayName}',
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold)),
                     Text(
