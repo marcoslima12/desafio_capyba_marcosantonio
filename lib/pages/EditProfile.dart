@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../widgets/MenuLateral.dart';
 
@@ -12,14 +13,16 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  User? currentUser = FirebaseAuth.instance.currentUser;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _newNameController = TextEditingController();
   final TextEditingController _newEmailController = TextEditingController();
   final TextEditingController _newPhoneController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
+    String photoURL = currentUser?.photoURL ??
+        "https://media.istockphoto.com/id/1338134336/photo/headshot-portrait-african-30s-man-smile-look-at-camera.jpg?b=1&s=170667a&w=0&k=20&c=j-oMdWCMLx5rIx-_W33o3q3aW9CiAWEvv9XrJQ3fTMU=";
     return Scaffold(
         appBar: AppBar(
           title: Text('Edit Profile'),
@@ -43,10 +46,9 @@ class _EditProfileState extends State<EditProfile> {
                               borderRadius: BorderRadius.circular(100),
                               border:
                                   Border.all(color: Colors.white, width: 4)),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Image.asset('assets/man.jpg',
-                                width: 90, height: 90),
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(photoURL),
+                            radius: 50,
                           ),
                         ),
                         TextButton(
