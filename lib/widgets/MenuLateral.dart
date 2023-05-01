@@ -12,10 +12,15 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+
   late User _user;
 
   @override
   Widget build(BuildContext context) {
+    String photoURL = currentUser?.photoURL ??
+        "https://media.istockphoto.com/id/1338134336/photo/headshot-portrait-african-30s-man-smile-look-at-camera.jpg?b=1&s=170667a&w=0&k=20&c=j-oMdWCMLx5rIx-_W33o3q3aW9CiAWEvv9XrJQ3fTMU=";
+
     void _signOut() async {
       try {
         await FirebaseAuth.instance.signOut();
@@ -46,13 +51,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             border: Border.all(color: Colors.white, width: 2)),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.asset('assets/man.jpg',
-                              width: 70, height: 70),
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(photoURL),
+                          radius: 50,
                         ),
                       ),
-                      Text('Marcos Antonio',
+                      Text('${currentUser!.displayName}',
                           style: TextStyle(
                               fontSize: 22, fontWeight: FontWeight.bold)),
                     ]),
