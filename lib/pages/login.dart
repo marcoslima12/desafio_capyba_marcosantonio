@@ -59,14 +59,23 @@ class _LoginState extends State<Login> {
     return Scaffold(
         appBar: AppBar(title: const Text('Login')),
         backgroundColor: Colors.greenAccent,
-        body: SingleChildScrollView(
+        body: Center(
+            child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(30.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset('assets/capybaLogo.png', width: 100, height: 100),
+                Image.asset('assets/capybaLogo.png', width: 150, height: 150),
+                SizedBox(height: 40),
+                Text(
+                  'Login',
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -113,6 +122,6 @@ class _LoginState extends State<Login> {
               ],
             ),
           ),
-        ));
+        )));
   }
 }
