@@ -76,13 +76,20 @@ class _MyProfileState extends State<MyProfile> {
               Navigator.pushNamed(context, '/edit-profile');
             },
             child: Padding(
-              padding: EdgeInsets.only(top: 15, left: 30, bottom: 15),
-              child: Row(children: [
-                Icon(Icons.edit_outlined),
-                SizedBox(width: 20),
-                Text('Edit Profile'),
-                Icon(Icons.arrow_circle_right)
-              ]),
+              padding:
+                  EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.edit_outlined),
+                        SizedBox(width: 20),
+                        Text('Edit Profile'),
+                      ],
+                    ),
+                    Icon(Icons.keyboard_arrow_right_outlined)
+                  ]),
             ),
           ),
           TextButton(
@@ -90,25 +97,37 @@ class _MyProfileState extends State<MyProfile> {
               Navigator.pushNamed(context, '/change-password');
             },
             child: Padding(
-              padding: EdgeInsets.only(top: 15, left: 30, bottom: 15),
-              child: Row(children: [
-                Icon(Icons.password_outlined),
-                SizedBox(width: 20),
-                Text('Change Password'),
-                Icon(Icons.arrow_circle_right)
-              ]),
+              padding: EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.password_outlined),
+                        SizedBox(width: 20),
+                        Text('Change Password'),
+                      ],
+                    ),
+                    Icon(Icons.keyboard_arrow_right_outlined)
+                  ]),
             ),
           ),
           TextButton(
             onPressed: _signOut,
             child: Padding(
-              padding: EdgeInsets.only(top: 15, left: 30, bottom: 15),
-              child: Row(children: [
-                Icon(Icons.logout_outlined),
-                SizedBox(width: 20),
-                Text('Sair'),
-                Icon(Icons.arrow_circle_right)
-              ]),
+              padding: EdgeInsets.only(top: 15, left: 30, bottom: 15, right: 30),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.logout_outlined),
+                        SizedBox(width: 20),
+                        Text('Sair'),
+                      ],
+                    ),
+                    Icon(Icons.keyboard_arrow_right_outlined)
+                  ]),
             ),
           ),
         ]));
