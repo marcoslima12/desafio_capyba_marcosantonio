@@ -38,14 +38,39 @@ class _ValidateEmailState extends State<ValidateEmail> {
         drawer: DrawerWidget(),
         appBar: AppBar(title: Text('E-mail verification')),
         body: Center(
+            child: Padding(
+          padding: EdgeInsets.all(30),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(Icons.email),
-              Text('Check your mail', style: TextStyle(fontSize: 25)),
+              Icon(Icons.email_outlined, size: 100, color: Colors.green),
+              SizedBox(height: 30),
+              Text('Check your email', style: TextStyle(fontSize: 25)),
+              SizedBox(height: 30),
               Text(
-                  'We hve sent a password recover instructions to your email.'),
+                'To confirm your email address, open your mail app.',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black45, fontSize: 17),
+              ),
+              SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have a link?",
+                    style: TextStyle(color: Colors.black38, fontSize: 15),
+                  ),
+                  TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Click here',
+                        style: TextStyle(fontSize: 18, color: Colors.green),
+                      ))
+                ],
+              )
             ],
           ),
-        ));
+        )));
   }
 }
