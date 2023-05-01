@@ -1,3 +1,4 @@
+import 'package:desafio_capyba_marcosantonio/pages/login.dart';
 import 'package:desafio_capyba_marcosantonio/widgets/MenuLateral.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -19,6 +20,18 @@ class _MyProfileState extends State<MyProfile> {
 
   @override
   Widget build(BuildContext context) {
+     void _signOut() async {
+      try {
+        await FirebaseAuth.instance.signOut();
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+        );
+      } catch (e) {
+        print(e);
+      }
+    }
+    
     return Scaffold(
         drawer: DrawerWidget(),
         appBar: AppBar(
@@ -85,7 +98,7 @@ class _MyProfileState extends State<MyProfile> {
             ),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: _signOut,
             child: Padding(
               padding: EdgeInsets.only(top: 15, left: 30, bottom: 15),
               child: Row(children: [
