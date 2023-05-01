@@ -172,6 +172,7 @@ class _EditProfileState extends State<EditProfile> {
                                             child: TextFormField(
                                               controller: _passwordController,
                                               autofocus: true,
+                                              obscureText: true,
                                               decoration: InputDecoration(
                                                   labelText: "Password",
                                                   labelStyle: TextStyle(

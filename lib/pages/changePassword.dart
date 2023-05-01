@@ -41,6 +41,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 TextFormField(
                   controller: _password,
                   autofocus: true,
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Your password',
                     border: OutlineInputBorder(),
