@@ -64,10 +64,11 @@ class _EditProfileState extends State<EditProfile> {
             email: currentUser?.email ?? '',
             password: _passwordController.text,
           );
-
-          setState(() {
-            checkedPassword = true;
-          });
+          if (userCredential.user != null) {
+            setState(() {
+              checkedPassword = true;
+            });
+          }
         } on FirebaseAuthException catch (e) {
           if (e.code == 'wrong-password') {
             setState(() {
@@ -151,7 +152,6 @@ class _EditProfileState extends State<EditProfile> {
                                 if (!(_newEmailController.text.trim() == '' &&
                                     _newNameController.text.trim() == '')) {
                                   showDialog(
-                                    /////////////////////////////////////////
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
@@ -309,7 +309,7 @@ class _EditProfileState extends State<EditProfile> {
                                                                 context)
                                                             .showSnackBar(SnackBar(
                                                                 content: Text(
-                                                                    'Wrong password. Try again')));
+                                                                    'Wrong BIG password. Try again')));
                                                       }
                                                     },
                                                     child: Text('Enter'))),

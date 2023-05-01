@@ -28,9 +28,11 @@ class _ChangePasswordState extends State<ChangePassword> {
           password: _passwordController.text,
         );
 
-        setState(() {
-          checkedPassword = true;
-        });
+        if (userCredential.user != null) {
+          setState(() {
+            checkedPassword = true;
+          });
+        }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'wrong-password') {
           ScaffoldMessenger.of(context).showSnackBar(
