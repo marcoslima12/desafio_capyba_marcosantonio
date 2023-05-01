@@ -84,11 +84,10 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create New Account'),
-      ),
       backgroundColor: Colors.greenAccent,
-      body: SingleChildScrollView(
+      body:
+      Center(child: 
+       SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Center(
@@ -96,7 +95,15 @@ class _SignUpState extends State<SignUp> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset('assets/capybaLogo.png', width: 100, height: 100),
+             Image.asset('assets/capybaLogo.png', width: 150, height: 150),
+                SizedBox(height: 40),
+                Text(
+                  'Sign up',
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
               Form(
                 key: _formKey,
                 child: Column(
@@ -156,6 +163,6 @@ class _SignUpState extends State<SignUp> {
           )),
         ),
       ),
-    );
+    ));
   }
 }
