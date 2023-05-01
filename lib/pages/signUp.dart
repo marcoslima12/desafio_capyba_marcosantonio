@@ -49,8 +49,6 @@ class _SignUpState extends State<SignUp> {
       User? currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser != null) {
         await currentUser.sendEmailVerification();
-        print(currentUser.displayName);
-        print(currentUser.phoneNumber);
       }
     } on FirebaseAuthException catch (e) {
       setState(() => isLoading = false);
