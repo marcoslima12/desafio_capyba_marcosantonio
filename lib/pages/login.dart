@@ -115,9 +115,11 @@ class _LoginState extends State<Login> {
                               MaterialPageRoute(builder: (context) => SignUp()))
                         },
                     child: Text("New here? Create an account >")),
-                /* (isLoading)
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : SizedBox.shrink(), */
+                (isLoading)
+                    ? Center(
+                        child: CircularProgressIndicator(color: Colors.white),
+                      )
+                    : SizedBox.shrink(),
               ],
             ),
           ),

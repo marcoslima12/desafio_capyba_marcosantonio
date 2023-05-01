@@ -84,85 +84,88 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.greenAccent,
-      body:
-      Center(child: 
-       SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: Center(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-             Image.asset('assets/capybaLogo.png', width: 150, height: 150),
-                SizedBox(height: 40),
-                Text(
-                  'Sign up',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    TextFormField(
-                      controller: _createNameController,
-                      autofocus: true,
-                      decoration: InputDecoration(
-                          labelText: "Name",
-                          labelStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(gapPadding: 5)),
+        backgroundColor: Colors.greenAccent,
+        body: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Center(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset('assets/capybaLogo.png', width: 150, height: 150),
+                  SizedBox(height: 40),
+                  Text(
+                    'Sign up',
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        TextFormField(
+                          controller: _createNameController,
+                          autofocus: true,
+                          decoration: InputDecoration(
+                              labelText: "Name",
+                              labelStyle: TextStyle(color: Colors.white),
+                              border: OutlineInputBorder(gapPadding: 5)),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextFormField(
+                          controller: _createEmailController,
+                          autofocus: true,
+                          decoration: InputDecoration(
+                              labelText: "Email",
+                              labelStyle: TextStyle(color: Colors.white),
+                              border: OutlineInputBorder(gapPadding: 5)),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextFormField(
+                          controller: _createPasswordController,
+                          autofocus: true,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              labelText: "Password",
+                              labelStyle: TextStyle(color: Colors.white),
+                              border: OutlineInputBorder(gapPadding: 5)),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: 15,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: ElevatedButton(
+                      onPressed: _signUp,
+                      child: Text('Create new account >'),
                     ),
-                    TextFormField(
-                      controller: _createEmailController,
-                      autofocus: true,
-                      decoration: InputDecoration(
-                          labelText: "Email",
-                          labelStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(gapPadding: 5)),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      controller: _createPasswordController,
-                      autofocus: true,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          labelText: "Password",
-                          labelStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(gapPadding: 5)),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: ElevatedButton(
-                  onPressed: _signUp,
-                  child: Text('Create new account >'),
-                ),
-              ),
-              TextButton(
-                  onPressed: () => {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => Login()))
-                      },
-                  child: Text("Already an user? Login >")),
-              /* (isLoading)
-                  ? CircularProgressIndicator(color: Colors.white)
-                  : CircularProgressIndicator(color: Colors.transparent), */
-            ],
-          )),
-        ),
-      ),
-    ));
+                  ),
+                  TextButton(
+                      onPressed: () => {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Login()))
+                          },
+                      child: Text("Already an user? Login >")),
+                  (isLoading)
+                      ? Center(
+                          child: CircularProgressIndicator(color: Colors.white),
+                        )
+                      : SizedBox.shrink(),
+                ],
+              )),
+            ),
+          ),
+        ));
   }
 }
