@@ -20,6 +20,14 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController _passwordController = TextEditingController();
   bool checkedPassword = false;
 
+  void _SubmmitChanges() {
+    if (!(_newEmailController.text.trim() == '' ||
+        _newNameController.text.trim() == '')) {
+    } else {
+      //nao mostrar pop up. avisar
+    }
+  }
+
   void _updateName() async {
     try {
       await currentUser!.updateDisplayName(_newNameController.text);
@@ -51,7 +59,6 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   void _checkPassword() async {
-    //print('OIII');
     if (currentUser!.email != null) {
       try {
         UserCredential userCredential =
@@ -66,9 +73,9 @@ class _EditProfileState extends State<EditProfile> {
         }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'wrong-password') {
-          /* setState(() {
-          checkedPassword = false;
-        }); */
+          setState(() {
+            checkedPassword = false;
+          });
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Something went wrong. Please, tray again')));
@@ -148,96 +155,187 @@ class _EditProfileState extends State<EditProfile> {
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: ElevatedButton(
                               onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('Password'),
-                                      content: Text(
-                                          'To save the new information, please enter your password'),
-                                      actions: <Widget>[
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 10, right: 10),
-                                          child: TextFormField(
-                                            controller: _passwordController,
-                                            autofocus: true,
-                                            decoration: InputDecoration(
-                                                labelText: "Password",
-                                                labelStyle: TextStyle(
-                                                    color: Colors.green),
-                                                border: OutlineInputBorder(
-                                                    gapPadding: 5)),
+                                if (!(_newEmailController.text.trim() == '' &&
+                                    _newNameController.text.trim() == '')) {
+                                  showDialog(
+                                    /////////////////////////////////////////
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Password'),
+                                        content: Text(
+                                            'To save the new information, please enter your password'),
+                                        actions: <Widget>[
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            child: TextFormField(
+                                              controller: _passwordController,
+                                              autofocus: true,
+                                              decoration: InputDecoration(
+                                                  labelText: "Password",
+                                                  labelStyle: TextStyle(
+                                                      color: Colors.green),
+                                                  border: OutlineInputBorder(
+                                                      gapPadding: 5)),
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 10, right: 10, top: 10),
-                                          child: Container(
-                                              width: double.infinity,
-                                              child: ElevatedButton(
-                                                  onPressed: () {
-                                                    _checkPassword();
-                                                    if (checkedPassword ==
-                                                        true) {
-                                                      if (_newEmailController
-                                                                  .text
-                                                                  .trim() !=
-                                                              '' &&
-                                                          _newNameController
-                                                                  .text
-                                                                  .trim() ==
-                                                              '') {
-                                                        print('Email');
-                                                        _updateEmail();
-                                                      } else if (_newEmailController
-                                                                  .text
-                                                                  .trim() ==
-                                                              '' &&
-                                                          _newNameController
-                                                                  .text
-                                                                  .trim() !=
-                                                              '') {
-                                                        print('Nome');
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10, right: 10, top: 10),
+                                            child: Container(
+                                                width: double.infinity,
+                                                child: ElevatedButton(
+                                                    onPressed: () {
+                                                      _checkPassword();
+                                                      if (checkedPassword ==
+                                                          true) {
+                                                        if (_newEmailController
+                                                                    .text
+                                                                    .trim() !=
+                                                                '' &&
+                                                            _newNameController
+                                                                    .text
+                                                                    .trim() ==
+                                                                '') {
+                                                          print('Email');
+                                                          _updateEmail();
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return AlertDialog(
+                                                                title: Text(
+                                                                    'Succsess!'),
+                                                                content: Text(
+                                                                    'Your information has been updated!'),
+                                                                actions: <
+                                                                    Widget>[
+                                                                  TextButton(
+                                                                    child: Text(
+                                                                        'Fechar'),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                    },
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            },
+                                                          );
+                                                        } else if (_newEmailController
+                                                                    .text
+                                                                    .trim() ==
+                                                                '' &&
+                                                            _newNameController
+                                                                    .text
+                                                                    .trim() !=
+                                                                '') {
+                                                          print('Nome');
 
-                                                        _updateName();
-                                                      } else if (_newEmailController
-                                                                  .text
-                                                                  .trim() !=
-                                                              '' &&
-                                                          _newNameController
-                                                                  .text
-                                                                  .trim() !=
-                                                              '') {
-                                                        print('Ambos');
-
-                                                        _updateEmail();
-                                                        _updateName();
+                                                          _updateName();
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return AlertDialog(
+                                                                title: Text(
+                                                                    'Succsess!'),
+                                                                content: Text(
+                                                                    'Your information has been updated!'),
+                                                                actions: <
+                                                                    Widget>[
+                                                                  TextButton(
+                                                                    child: Text(
+                                                                        'Fechar'),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                    },
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            },
+                                                          );
+                                                        } else if (_newEmailController
+                                                                    .text
+                                                                    .trim() !=
+                                                                '' &&
+                                                            _newNameController
+                                                                    .text
+                                                                    .trim() !=
+                                                                '') {
+                                                          print('Ambos');
+                                                          _updateEmail();
+                                                          _updateName();
+                                                          showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return AlertDialog(
+                                                                title: Text(
+                                                                    'Succsess!'),
+                                                                content: Text(
+                                                                    'Your information has been updated!'),
+                                                                actions: <
+                                                                    Widget>[
+                                                                  TextButton(
+                                                                    child: Text(
+                                                                        'Fechar'),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                    },
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            },
+                                                          );
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        } else {
+                                                          print('Nenhum');
+                                                          {}
+                                                        }
                                                       } else {
-                                                        print('Nenhum');
-
-                                                        {}
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(SnackBar(
+                                                                content: Text(
+                                                                    'Wrong password. Try again')));
                                                       }
-                                                    } else {
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(SnackBar(
-                                                              content: Text(
-                                                                  'Wrong password. Try again')));
-                                                    }
-                                                  },
-                                                  child: Text('Enter'))),
-                                        ),
-                                        TextButton(
-                                          child: Text('Fechar'),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
+                                                    },
+                                                    child: Text('Enter'))),
+                                          ),
+                                          TextButton(
+                                            child: Text('Fechar'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'Empty values. Enter new personal information')));
+                                }
                               },
                               child: Text('Save'),
                             ),
