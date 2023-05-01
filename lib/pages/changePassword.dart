@@ -102,6 +102,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 TextFormField(
                   controller: _newPasswordController,
                   autofocus: true,
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'New Password',
                     border: OutlineInputBorder(),
@@ -113,6 +114,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 TextFormField(
                   controller: _confirmNewPassword,
                   autofocus: true,
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Confirm New Password',
                     border: OutlineInputBorder(),
