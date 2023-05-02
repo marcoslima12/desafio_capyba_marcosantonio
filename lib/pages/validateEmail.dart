@@ -117,7 +117,9 @@ class _ValidateEmailState extends State<ValidateEmail> {
                                     color: Colors.black38, fontSize: 15),
                               ),
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.popAndPushNamed(context, 'home');
+                                  },
                                   child: Text(
                                     'Home',
                                     style: TextStyle(
