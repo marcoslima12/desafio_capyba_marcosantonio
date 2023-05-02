@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:desafio_capyba_marcosantonio/pages/LoggedArea.dart';
 import 'package:desafio_capyba_marcosantonio/pages/login.dart';
 import 'package:desafio_capyba_marcosantonio/widgets/Anexo.dart';
-import 'package:desafio_capyba_marcosantonio/pages/photoPreview.dart';
+import 'package:desafio_capyba_marcosantonio/widgets/photoPreview.dart';
 import 'package:flutter/material.dart';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:get/get.dart';
@@ -43,7 +43,7 @@ class _SignUpState extends State<SignUp> {
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => LoggedArea(user)),
+          MaterialPageRoute(builder: (context) => LoggedArea()),
         );
       }
       User? currentUser = FirebaseAuth.instance.currentUser;
