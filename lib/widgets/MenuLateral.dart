@@ -70,6 +70,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               title: const Text('Home', style: TextStyle(color: Colors.green)),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.pushNamed(context, '/home');
               },
             ),
           ),

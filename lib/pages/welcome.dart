@@ -9,36 +9,31 @@ class WelcomePage extends StatelessWidget {
       appBar: AppBar(title: const Text('Welcone - Desafio Capyba')),
       backgroundColor: Colors.greenAccent,
       body: Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("Welcome :)",
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold)),
-              Padding(
-                padding: EdgeInsets.only(top: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/login');
-                        },
-                        child: Text("Sign in")),
-                    SizedBox(width: 40),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/signup');
-                        },
-                        child: Text("Sign up")),
-                  ],
-                ),
-              )
-            ]),
-      ),
+          child: Padding(
+        padding: EdgeInsets.all(30),
+        child: Column(children: <Widget>[
+          Image.asset('assets/capybaLogo.png', width: 250, height: 250),
+          Text('Hey! Welcome',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+          SizedBox(height: 15),
+          Text(
+              "It's a pleasure to have you here. This app was made with too much effort and loving",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black45, fontSize: 17)),
+              SizedBox(height: 15),
+          Container(
+            width: double.infinity,
+            child: ElevatedButton(onPressed: () {}, child: Text('Get started')),
+          ),
+          SizedBox(height: 15),
+          TextButton(
+              onPressed: () {},
+              child: Text(
+                'I already have an account',
+                style: TextStyle(fontSize: 16),
+              ))
+        ]),
+      )),
     );
   }
 }
