@@ -8,12 +8,15 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Welcone - Desafio Capyba')),
+      //appBar: AppBar(title: const Text('Welcone - Desafio Capyba')),
       backgroundColor: Colors.greenAccent,
       body: Center(
           child: Padding(
         padding: EdgeInsets.all(30),
-        child: Column(children: <Widget>[
+      
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
           Image.asset('assets/capybaLogo.png', width: 250, height: 250),
           Text('Hey! Welcome',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
