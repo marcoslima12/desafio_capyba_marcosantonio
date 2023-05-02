@@ -36,6 +36,7 @@ class _ValidateEmailState extends State<ValidateEmail> {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Link sent to ${currentUser.email}')));
         }
+        await currentUser?.reload();
       } catch (e) {
         print(e);
         setState(() => loading = false);
@@ -49,72 +50,82 @@ class _ValidateEmailState extends State<ValidateEmail> {
         appBar: AppBar(title: Text('E-mail verification')),
         body: Center(
             child: Padding(
-          padding: EdgeInsets.all(30),
-          child: (curUser!.emailVerified)
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('Verify your account', style: TextStyle(fontSize: 25)),
-                    SizedBox(height: 30),
-                    Text(
-                      'Validation link has been sent to the e-mail address you provided.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black45, fontSize: 17),
-                    ),
-                    SizedBox(height: 30),
-                    Icon(Icons.mark_email_unread, size: 40, color: Colors.green),
-                    SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Didn't get the link?",
-                          style: TextStyle(color: Colors.black38, fontSize: 15),
-                        ),
-                        TextButton(
-                            onPressed: _sendAnotherLink,
-                            child: Text(
-                              'Send it again',
-                              style:
-                                  TextStyle(fontSize: 17, color: Colors.green),
-                            ))
-                      ],
-                    )
-                  ],
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('Your account has been verified!', style: TextStyle(fontSize: 25), textAlign: TextAlign.center,),
-                    SizedBox(height: 30),
-                    Text(
-                      'Now you can have access to everything!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black45, fontSize: 17),
-                    ),
-                    SizedBox(height: 30),
-                    Icon(Icons.mark_email_read, size: 40, color: Colors.green),
-                    SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Enjoy our app!",
-                          style: TextStyle(color: Colors.black38, fontSize: 15),
-                        ),
-                        TextButton(
-                            onPressed: (){},
-                            child: Text(
-                              'Home',
-                              style:
-                                  TextStyle(fontSize: 17, color: Colors.green),
-                            ))
-                      ],
-                    )
-                  ],
-                )
-        )));
+                padding: EdgeInsets.all(30),
+                child: (!curUser!.emailVerified)
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Verify your account',
+                              style: TextStyle(fontSize: 25)),
+                          SizedBox(height: 30),
+                          Text(
+                            'Validation link has been sent to the e-mail address you provided.',
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(color: Colors.black45, fontSize: 17),
+                          ),
+                          SizedBox(height: 30),
+                          Icon(Icons.mark_email_unread,
+                              size: 40, color: Colors.green),
+                          SizedBox(height: 15),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Didn't get the link?",
+                                style: TextStyle(
+                                    color: Colors.black38, fontSize: 15),
+                              ),
+                              TextButton(
+                                  onPressed: _sendAnotherLink,
+                                  child: Text(
+                                    'Send it again',
+                                    style: TextStyle(
+                                        fontSize: 17, color: Colors.green),
+                                  ))
+                            ],
+                          )
+                        ],
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Your account has been verified!',
+                            style: TextStyle(fontSize: 25),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 30),
+                          Text(
+                            'Now you can have access to everything!',
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(color: Colors.black45, fontSize: 17),
+                          ),
+                          SizedBox(height: 30),
+                          Icon(Icons.mark_email_read,
+                              size: 40, color: Colors.green),
+                          SizedBox(height: 15),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Enjoy our app!",
+                                style: TextStyle(
+                                    color: Colors.black38, fontSize: 15),
+                              ),
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Home',
+                                    style: TextStyle(
+                                        fontSize: 17, color: Colors.green),
+                                  ))
+                            ],
+                          )
+                        ],
+                      ))));
   }
 }
