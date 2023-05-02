@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoggedArea extends StatefulWidget {
-  final User _user;
-  LoggedArea(this._user);
+  /* final User _user;
+  LoggedArea(this._user); */
 
   @override
   State<LoggedArea> createState() => _LoggedAreaState();
@@ -81,7 +81,7 @@ class _LoggedAreaState extends State<LoggedArea> {
   }
 }
 
-class AuthWrapper extends StatelessWidget {
+/* class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
@@ -95,4 +95,4 @@ class AuthWrapper extends StatelessWidget {
       },
     );
   }
-}
+} */

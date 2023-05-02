@@ -31,11 +31,14 @@ class _LoginState extends State<Login> {
         password: _passwordController.text,
       );
       User? user = userCredential.user;
-      Navigator.pushAndRemoveUntil(
+      if(user != null){
+        Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => LoggedArea(user!)),
+        MaterialPageRoute(builder: (context) => LoggedArea()),
         (Route<dynamic> route) => false,
       );
+      }
+     /*   */
     } on FirebaseAuthException catch (e) {
       setState(() => isLoading = false);
       if (e.code == 'user-not-found') {
@@ -57,16 +60,24 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Login')),
         backgroundColor: Colors.greenAccent,
-        body: SingleChildScrollView(
+        body: Center(
+            child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(30.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset('assets/capybaLogo.png', width: 100, height: 100),
+                Image.asset('assets/capybaLogo.png', width: 150, height: 150),
+                SizedBox(height: 40),
+                Text(
+                  'Login',
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -107,12 +118,14 @@ class _LoginState extends State<Login> {
                               MaterialPageRoute(builder: (context) => SignUp()))
                         },
                     child: Text("New here? Create an account >")),
-                /* (isLoading)
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : SizedBox.shrink(), */
+                (isLoading)
+                    ? Center(
+                        child: CircularProgressIndicator(color: Colors.white),
+                      )
+                    : SizedBox.shrink(),
               ],
             ),
           ),
-        ));
+        )));
   }
 }

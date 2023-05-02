@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'Desafio Capyba',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: AuthWrapper(),
+      home: WelcomePage(),
       routes: {
         '/login': (context) => Login(),
         '/signup': (context) => SignUp(),
@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/my-profile': (context) => MyProfile(),
         '/edit-profile': (context) => EditProfile(),
          '/change-password': (context) => ChangePassword(),
+         '/home': (context) => LoggedArea(),
       
       },
     );
