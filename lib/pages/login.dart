@@ -31,11 +31,14 @@ class _LoginState extends State<Login> {
         password: _passwordController.text,
       );
       User? user = userCredential.user;
-      Navigator.pushAndRemoveUntil(
+      if(user != null){
+        Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => LoggedArea(user!)),
+        MaterialPageRoute(builder: (context) => LoggedArea()),
         (Route<dynamic> route) => false,
       );
+      }
+     /*   */
     } on FirebaseAuthException catch (e) {
       setState(() => isLoading = false);
       if (e.code == 'user-not-found') {
