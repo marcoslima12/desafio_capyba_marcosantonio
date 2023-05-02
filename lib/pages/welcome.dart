@@ -1,3 +1,5 @@
+import 'package:desafio_capyba_marcosantonio/pages/login.dart';
+import 'package:desafio_capyba_marcosantonio/pages/signUp.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -23,11 +25,21 @@ class WelcomePage extends StatelessWidget {
               SizedBox(height: 15),
           Container(
             width: double.infinity,
-            child: ElevatedButton(onPressed: () {}, child: Text('Get started')),
+            child: ElevatedButton(onPressed: () {
+                Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+        );
+            }, child: Text('Get started')),
           ),
           SizedBox(height: 15),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                  Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => SignUp()),
+        );
+              },
               child: Text(
                 'I already have an account',
                 style: TextStyle(fontSize: 16),
