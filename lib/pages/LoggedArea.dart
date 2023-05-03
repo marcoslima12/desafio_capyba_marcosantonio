@@ -50,14 +50,6 @@ class _LoggedAreaState extends State<LoggedArea> {
                 'Hi, on this page you can see your documents',
                 style: TextStyle(fontSize: 20, color: Colors.black54),
               )),
-              /*  !(currentUser != null && currentUser.emailVerified)
-                  ? Center(
-                      child: Text(
-                      textAlign: TextAlign.center,
-                      'Hi, on this page you can see your documents',
-                      style: TextStyle(fontSize: 20, color: Colors.black54),
-                    ))
-                  : */
               FutureBuilder(
                 future: _checkEmailVerification(context),
                 builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
