@@ -6,9 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoggedArea extends StatefulWidget {
-  /* final User _user;
-  LoggedArea(this._user); */
-
   @override
   State<LoggedArea> createState() => _LoggedAreaState();
 }
@@ -17,14 +14,6 @@ class _LoggedAreaState extends State<LoggedArea> {
   @override
   Widget build(BuildContext context) {
     User? currentUser = FirebaseAuth.instance.currentUser;
-
-    void _redirectToValidateEmail(BuildContext context) async {
-      await Future.delayed(Duration(milliseconds: 4000));
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => ValidateEmail()),
-      );
-    }
 
     Future<bool> _checkEmailVerification(BuildContext context) async {
       User? currentUser = FirebaseAuth.instance.currentUser;
@@ -48,51 +37,45 @@ class _LoggedAreaState extends State<LoggedArea> {
                   child: Text('Home'),
                 ),
                 Tab(
-                  child: Text('Restrito'),
+                  child: Text('Restrict'),
                 ),
               ],
             ),
           ),
           body: TabBarView(
             children: [
-              Center(child: Text('Home')),
-              currentUser != null && currentUser.emailVerified
-                  ? Center(child: Text('ok'))
-                  : FutureBuilder(
-                      future: _checkEmailVerification(context),
-                      builder:
-                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Center(
-                              child: Text('Erro ao verificar e-mail'));
-                        } else if (snapshot.data == true) {
-                          return Center(child: Text('ok'));
-                        } else {
-                          return Center(child: Text('E-mail não verificado'));
-                        }
-                      },
-                    ),
+              Center(
+                  child: Text(
+                textAlign: TextAlign.center,
+                'Hi, on this page you can see your documents',
+                style: TextStyle(fontSize: 20, color: Colors.black54),
+              )),
+              FutureBuilder(
+                future: _checkEmailVerification(context),
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Erro ao verificar e-mail'));
+                  } else if (snapshot.data == true) {
+                    return Center(
+                        child: Text(
+                      textAlign: TextAlign.center,
+                      'Now that you have verified your e-mail, you can see these documents too!',
+                      style: TextStyle(fontSize: 20, color: Colors.black54),
+                    ));
+                  } else {
+                    return Center(
+                        child: Text(
+                      textAlign: TextAlign.center,
+                      'You must verify your e-mail to see these documents',
+                      style: TextStyle(fontSize: 20, color: Colors.black54),
+                    ));
+                  }
+                },
+              ),
             ],
           ),
         ));
   }
 }
-
-/* class AuthWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return LoggedArea(snapshot.data!);
-        } else {
-          return Login();
-        }
-      },
-    );
-  }
-} */

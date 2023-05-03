@@ -55,7 +55,7 @@ class _SignUpState extends State<SignUp> {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Your password it too weak')));
+            .showSnackBar(SnackBar(content: Text('Your password it too weak. Enter a 6+ characters password.')));
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
         ScaffoldMessenger.of(context).showSnackBar(
