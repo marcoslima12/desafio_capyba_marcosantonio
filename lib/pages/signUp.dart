@@ -4,12 +4,9 @@ import 'dart:ui';
 import 'package:desafio_capyba_marcosantonio/pages/LoggedArea.dart';
 import 'package:desafio_capyba_marcosantonio/pages/login.dart';
 import 'package:desafio_capyba_marcosantonio/widgets/Anexo.dart';
-import 'package:desafio_capyba_marcosantonio/widgets/photoPreview.dart';
 import 'package:flutter/material.dart';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:get/get.dart';
-
-/* import '../models/User.dart'; */
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -67,17 +64,6 @@ class _SignUpState extends State<SignUp> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Something went wrong. Please, tray again')));
       }
-    }
-  }
-
-  File arquivo = File('');
-
-  showPreview(file) async {
-    file = await Get.to(() => PreviewPage(file: file));
-
-    if (file != null && file != '') {
-      setState(() => arquivo = file);
-      Get.back();
     }
   }
 
