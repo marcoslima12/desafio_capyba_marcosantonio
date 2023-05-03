@@ -1,4 +1,4 @@
-import 'package:desafio_capyba_marcosantonio/pages/LoggedArea.dart';
+import 'package:desafio_capyba_marcosantonio/pages/loggedArea.dart';
 import 'package:desafio_capyba_marcosantonio/pages/signUp.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';

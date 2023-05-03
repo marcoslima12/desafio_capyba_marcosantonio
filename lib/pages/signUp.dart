@@ -1,13 +1,7 @@
-import 'dart:io';
-import 'dart:ui';
-
-import 'package:desafio_capyba_marcosantonio/pages/LoggedArea.dart';
+import 'package:desafio_capyba_marcosantonio/pages/loggedArea.dart';
 import 'package:desafio_capyba_marcosantonio/pages/login.dart';
-import 'package:desafio_capyba_marcosantonio/widgets/Anexo.dart';
 import 'package:flutter/material.dart';
 import 'package:camera_camera/camera_camera.dart';
-import 'package:get/get.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUp extends StatefulWidget {
