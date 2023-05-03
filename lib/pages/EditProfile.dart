@@ -71,6 +71,9 @@ class _EditProfileState extends State<EditProfile> {
           }
         } on FirebaseAuthException catch (e) {
           if (e.code == 'wrong-password') {
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Wrong password. Try again')));
+
             setState(() {
               checkedPassword = false;
             });
@@ -304,13 +307,7 @@ class _EditProfileState extends State<EditProfile> {
                                                           print('Nenhum');
                                                           {}
                                                         }
-                                                      } else {
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .showSnackBar(SnackBar(
-                                                                content: Text(
-                                                                    'Wrong BIG password. Try again')));
-                                                      }
+                                                      } 
                                                     },
                                                     child: Text('Enter'))),
                                           ),

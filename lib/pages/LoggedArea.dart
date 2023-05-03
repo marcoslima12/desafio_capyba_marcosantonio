@@ -44,27 +44,44 @@ class _LoggedAreaState extends State<LoggedArea> {
           ),
           body: TabBarView(
             children: [
-              Center(child: Text('Home')),
-              currentUser != null && currentUser.emailVerified
-                  ? Center(child: Text('ok'))
-                  : /* Center(child: Text("E-mail não verificado")) */
-                  FutureBuilder(
-                      future: _checkEmailVerification(context),
-                      builder:
-                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Center(
-                              child: Text('Erro ao verificar e-mail'));
-                        } else if (snapshot.data == true) {
-                          return Center(child: Text('ok'));
-                        } else {
-                          return Center(child: Text('E-mail não verificado'));
-                        }
-                      },
-                    ),
+              Center(
+                  child: Text(
+                textAlign: TextAlign.center,
+                'Hi, on this page you can see your documents',
+                style: TextStyle(fontSize: 20, color: Colors.black54),
+              )),
+              /*  !(currentUser != null && currentUser.emailVerified)
+                  ? Center(
+                      child: Text(
+                      textAlign: TextAlign.center,
+                      'Hi, on this page you can see your documents',
+                      style: TextStyle(fontSize: 20, color: Colors.black54),
+                    ))
+                  : */
+              FutureBuilder(
+                future: _checkEmailVerification(context),
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Erro ao verificar e-mail'));
+                  } else if (snapshot.data == true) {
+                    return Center(
+                        child: Text(
+                      textAlign: TextAlign.center,
+                      'Now that you have verified your e-mail, you can see these documents too!',
+                      style: TextStyle(fontSize: 20, color: Colors.black54),
+                    ));
+                  } else {
+                    return Center(
+                        child: Text(
+                      textAlign: TextAlign.center,
+                      'You must verify your e-mail to see these documents',
+                      style: TextStyle(fontSize: 20, color: Colors.black54),
+                    ));
+                  }
+                },
+              ),
             ],
           ),
         ));
